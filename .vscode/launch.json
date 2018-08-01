@@ -13,14 +13,14 @@
                 "run",
                 "debug",
                 "--",
-                "--inspect-brk"
+                "--inspect"
             ],
             "console": "integratedTerminal",
             "restart": true,
             "protocol": "auto",
             "port": 9229,
             "autoAttachChildProcesses": true
-        },           
+        },
         {
             "type": "node",
             "request": "launch",

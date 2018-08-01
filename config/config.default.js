@@ -13,5 +13,12 @@ module.exports = appInfo => {
         csrf: false,
     };
 
+    config.view = {
+        defaultViewEngine: 'ejs',
+        mapping: {
+            '.html': 'ejs',
+        },
+    };
+
     return config;
 };

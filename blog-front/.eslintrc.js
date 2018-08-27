@@ -6,6 +6,5 @@ module.exports = {
     rules: {
         'indent': ["error", 4],
         'linebreak-style': 0,
-        'valid-jsdoc': 0,
     }
 }

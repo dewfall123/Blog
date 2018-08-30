@@ -11,6 +11,6 @@ module.exports = app => {
     blogRouter.get('/', controller.site.index);
 
     // blog 增删查改
-    blogRouter.get('/list', controller.blog.list);
+    blogRouter.post('/list', controller.blog.list);
     blogRouter.post('/insert', controller.blog.insert);
 };

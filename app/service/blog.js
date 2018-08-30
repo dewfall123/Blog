@@ -19,6 +19,16 @@ class BlogService extends Service {
         const { affectedRows: result } = await this.app.mysql.insert('blog', blog);
         return result;
     }
+
+    async select(uid, pageIndex = 1, pageSize = 10) {
+        const list = await this.app.mysql.select('blog', {
+            where: { createUser: uid },
+            orders: [[ 'createTime', 'desc' ]],
+            limit: pageSize,
+            offset: (+pageIndex - 1) * pageSize,
+        });
+        return list;
+    }
 }
 
 module.exports = BlogService;

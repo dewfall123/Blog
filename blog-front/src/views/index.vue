@@ -9,7 +9,7 @@
                 <Avatar :src="logo" size="large" />
             </Col>
             <Col :span="2">
-                <span class="title">首页</span>
+                <span class="title" @click="goto('bloglist')">首页</span>
             </Col>
             <Col :span="topInputFocus ? 4 : 2">
                 <Input class="header-search" 

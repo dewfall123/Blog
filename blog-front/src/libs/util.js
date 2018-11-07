@@ -1,4 +1,8 @@
 import axios from 'axios';
+import dayjs from 'dayjs';
+import AdvancedFormat from 'dayjs/plugin/RelativeTime'
+dayjs.extend(AdvancedFormat)
+
 import env from '../config/env';
 
 let util = {
@@ -26,4 +30,9 @@ util.oneOf = function (value, validList) {
  }
  return false
 }
+
+util.toNow = (s) => {
+  return dayjs(s).fromNow();
+};
+
 export default util;

@@ -22,6 +22,14 @@ const routers = [{
                 },
                 component: (resolve) => require(['./views/blog/list.vue'], resolve)
             },
+            {
+                path: '/blog/detail',
+                name: 'blogdetail',
+                meta: {
+                    title: '详情'
+                },
+                component: (resolve) => require(['./views/blog/detail.vue'], resolve)
+            },
         ]
     },
 ];

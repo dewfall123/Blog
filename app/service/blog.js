@@ -29,6 +29,11 @@ class BlogService extends Service {
         });
         return list;
     }
+
+    async read(id) {
+        const blog = await this.app.mysql.get('blog', { id });
+        return blog;
+    }
 }
 
 module.exports = BlogService;

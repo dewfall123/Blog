@@ -5,9 +5,16 @@ const merge = require('webpack-merge');
 const webpackBaseConfig = require('./webpack.base.config.js');
 const fs = require('fs');
 
-fs.open('./src/config/env.js', 'w', function(err, fd) {
-    const buf = 'export default "development";';
-    fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});
+// fs.open('./src/config/env.js', 'w', function(err, fd) {
+//     const buf = 'export default "development";';
+//     fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {
+
+//     });
+// });
+fs.writeFile('./src/config/env.js', 'export default "development";', function(err, result) {
+    if(err) {
+        console.log(err);
+    }
 });
 
 module.exports = merge(webpackBaseConfig, {

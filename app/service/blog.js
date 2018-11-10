@@ -30,8 +30,13 @@ class BlogService extends Service {
         return list;
     }
 
-    async read(id) {
-        const blog = await this.app.mysql.get('blog', { id });
+    async read(uid, id) {
+        const blog = await this.app.mysql.get('blog', { createUser: uid, id });
+        return blog;
+    }
+
+    async delete(uid, id) {
+        const blog = await this.app.mysql.delete('blog', { createUser: uid, id });
         return blog;
     }
 }

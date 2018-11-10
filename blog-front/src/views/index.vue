@@ -20,17 +20,18 @@
             <Col :span="2" v-show="!topInputFocus"></Col>
             <Col :span="10"></Col>
             <Col :span="4">
-                 <Button shape="circle"  @click="goto('blogedit')">写Blog</Button>
+                <Button shape="circle"  @click="goto('blogedit')">写Blog</Button>
             </Col>
             <Col :span="2"></Col>
         </Row>
         <Row class="container">
             <router-view></router-view>
+            <BackTop :height="100"></BackTop>
         </Row>
     </div>
 </template>
 <script>
-    import logo from '../assets/images/title.png'
+    import logo from '../assets/images/title.png';
 
     export default {
         data() {

@@ -4,16 +4,20 @@ import VueRouter from 'vue-router';
 import Routers from './router';
 import Vuex from 'vuex';
 import Util from './libs/util';
-import App from './app.vue';
+import mavonEditor from 'mavon-editor';
 
 import 'iview/dist/styles/iview.css';
+import 'mavon-editor/dist/css/index.css'
 
+import App from './app.vue';
+import util from './libs/util';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(iView);
+Vue.use(mavonEditor);
 
-Vue.prototype.$util = Util;
+Vue.use(Util);
 
 
 // 路由配置
@@ -25,7 +29,7 @@ const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
-    Util.title(to.meta.title);
+    Util.util.title(to.meta.title);
     next();
 });
 
@@ -55,5 +59,7 @@ new Vue({
     el: '#app',
     router: router,
     store: store,
+    components: {
+    },
     render: h => h(App)
 });

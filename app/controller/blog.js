@@ -38,13 +38,29 @@ class BlogController extends Controller {
      */
     async detail() {
         const uid = this.ctx.session.uid || '1';
-        const { id } = this.ctx.request.query;
+        const { id } = this.ctx.query;
 
-        const blog = await this.service.blog.read(uid, id);
+        const blog = await this.service.blog.read(uid, +id);
 
         this.ctx.body = {
             result: 0,
             blog,
+        };
+    }
+
+
+    /**
+     * 删除
+     */
+    async delete() {
+        const uid = this.ctx.session.uid || '1';
+        const { id } = this.ctx.params;
+
+        const del = await this.service.blog.delete(uid, +id);
+
+        this.ctx.body = {
+            result: 0,
+            del,
         };
     }
 }

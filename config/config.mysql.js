@@ -10,7 +10,7 @@ exports.mysql = {
         // 用户名
         user: 'zuofenghua',
         // 密码
-        password: '614035',
+        password: 'xxx',
         // 数据库名
         database: 'blog',
     },

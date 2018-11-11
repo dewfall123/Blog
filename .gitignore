@@ -2,6 +2,8 @@ logs/
 npm-debug.log
 yarn-error.log
 node_modules/
+config/config.mysql.js
+app/public/
 package-lock.json
 yarn.lock
 coverage/

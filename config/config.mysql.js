@@ -8,9 +8,9 @@ exports.mysql = {
         // 端口号
         port: '3306',
         // 用户名
-        user: '',
+        user: 'zuofenghua',
         // 密码
-        password: '',
+        password: '614035',
         // 数据库名
         database: 'blog',
     },

@@ -15,4 +15,5 @@ module.exports = app => {
     blogRouter.post('/insert', controller.blog.insert);
     blogRouter.get('/detail', controller.blog.detail);
     blogRouter.delete('/delete/:id', controller.blog.delete);
+    blogRouter.post('/update', controller.blog.update);
 };

@@ -7,7 +7,7 @@ class BlogService extends Service {
     /**
      * create
      */
-    async insert(uid, title, content, tags) {
+    async insert(uid = 1, title, content, summary = '', tags, firstImg = '', weather = 'sunny') {
         const blog = {
             title,
             content,
@@ -15,6 +15,10 @@ class BlogService extends Service {
             createTime: new Date().getTime(),
             lastEditTime: new Date().getTime(),
             createUser: uid,
+            summary,
+            editCount: 0,
+            firstImg,
+            weather,
         };
         const { affectedRows: result } = await this.app.mysql.insert('blog', blog);
         return result;
@@ -36,8 +40,21 @@ class BlogService extends Service {
     }
 
     async delete(uid, id) {
-        const blog = await this.app.mysql.delete('blog', { createUser: uid, id });
-        return blog;
+        const { affectedRows: result } = await this.app.mysql.delete('blog', { createUser: uid, id });
+        return result;
+    }
+
+    /**
+     * 修改文章
+     * @param {*} blog 完整对象
+     */
+    async update(blog) {
+        Object.assign(blog, {
+            editCount: +blog.editCount + 1,
+            lastEditTime: new Date().getTime(),
+        });
+        const { affectedRows: result } = await this.app.mysql.update('blog', blog);
+        return result;
     }
 }
 

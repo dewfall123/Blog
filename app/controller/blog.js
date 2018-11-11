@@ -9,9 +9,10 @@ class BlogController extends Controller {
      * 创建blog接口
      */
     async insert() {
-        const { title, content } = this.ctx.request.body;
+        const { title, content, tags, firstImg, weather } = this.ctx.request.body;
         const uid = this.ctx.session.uid || '1';
-        const insertResult = await this.service.blog.insert(uid, title, content);
+        const summary = content; // TODO
+        const insertResult = await this.service.blog.insert(uid, title, content, summary, tags, firstImg, weather);
         this.ctx.body = {
             result: insertResult === 1 ? 0 : -1,
             msg: insertResult === 1 ? '创建成功' : '创建失败',
@@ -34,7 +35,7 @@ class BlogController extends Controller {
 
 
     /**
-     * 获取单个blog
+     * 查询单个blog
      */
     async detail() {
         const uid = this.ctx.session.uid || '1';
@@ -59,8 +60,22 @@ class BlogController extends Controller {
         const del = await this.service.blog.delete(uid, +id);
 
         this.ctx.body = {
-            result: 0,
-            del,
+            result: del === 1 ? 0 : -1,
+            msg: del === 1 ? '删除成功' : '删除失败',
+        };
+    }
+
+    /**
+     * 修改
+     */
+    async update() {
+        const { blog } = this.ctx.request.body;
+
+        const up = await this.service.blog.update(blog);
+
+        this.ctx.body = {
+            result: up === 1 ? 0 : -1,
+            msg: up === 1 ? '修改成功' : '修改失败',
         };
     }
 }

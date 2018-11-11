@@ -17,6 +17,7 @@ Vue.use(Vuex);
 Vue.use(iView);
 Vue.use(mavonEditor);
 
+// 自定义的方法
 Vue.use(Util);
 
 

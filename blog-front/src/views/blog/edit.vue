@@ -7,7 +7,7 @@
         <Row>
             <Input long placeholder="标题" v-model="title"></Input>
             <!-- <editor v-model="content"></editor> -->
-            <mavon-editor v-model="content" @save="commitBlog" ></mavon-editor>
+            <mavon-editor v-model="content" @save="preCommit" ></mavon-editor>
             <Row>
                 <Col :span="23"></Col>
             </Row>
@@ -36,9 +36,32 @@
                     title: this.title,
                     content: this.content,
                 }).then(res => {
-                    console.log(res.data);
+                    
+                    setTimeout(() => {
+                        this.$router.push({name: 'bloglist'})
+                    }, 1000);
                 });
-            }
+            },
+
+            // 弹出提交确认
+            preCommit () {
+                if (!this.title) {
+                    return this.$Modal.warning({title: '^_^', content: '请输入标题!'});
+                }
+                if (!this.content) {
+                    return this.$Modal.warning({title: '^_^', content: '内容不能为空!'});
+                }
+                this.$Modal.confirm({
+                    title: '确认发布?',
+                    content: `<p>发布文章<h3>${this.title}</h3></p>`,
+                    onOk: () => {
+                        this.commitBlog();
+                    },
+                    onCancel: () => {
+                        //
+                    }
+                });
+            },
         }, 
         mounted() {
             

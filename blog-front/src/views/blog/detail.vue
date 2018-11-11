@@ -18,16 +18,17 @@
                     </Row>
                 </Row>
                 <Row class="content">
-                    <mavon-editor :toolbarsFlag="false" :subfield="false" :defaultOpen="'preview'" v-model="blog.content"></mavon-editor>
+                    <mavon-editor :toolbarsFlag="editMode" :subfield="editMode" :defaultOpen="'preview'" v-model="blog.content"></mavon-editor>
                 </Row>
                 <Row type="flex" justify="end">
-                    <Button type="text">修改</Button>
+                    <Button type="text" @click="update" v-show="editMode">保存</Button>
+                    <Button type="text" @click="showEdit" v-show="!editMode">修改</Button>
                     <Poptip
                         confirm
                         title="确认删除?"
                         @on-ok="deleteBlog"
                         >
-                        <Button type="text" class="delete-button" >删除</Button>
+                        <Button type="text" class="delete-button" v-show="!editMode">删除</Button>
                     </Poptip>
                 </Row>
             </Col>
@@ -51,13 +52,14 @@ import { setTimeout } from 'timers';
                     createTime: '',
                     lastEditTime: '',
                     createUser: '',
-                }
+                },
+                editMode: false,
             }
         },
         methods: {
             detail() {
                 if (!this.$route.params.id) {
-                    this.$Message.error('参数异常');
+                    this.$Modal.error({title: '^-^', content: '参数异常'});
                     this.backToList();
                     return;
                 }
@@ -74,19 +76,24 @@ import { setTimeout } from 'timers';
             deleteBlog() {
                 this.ajax.delete(`/blog/delete/${this.$route.params.id}`
                 ).then(res => {
-                    if (+res.data.result === 0) {
-                        this.$Message.success('删除成功');
-                        this.backToList();
-                    } else {
-                        this.$Message.error(res.data.msg || '删除失败');
-                    }
-                });;
+                    this.backToList();
+                });
             },
             backToList() {
                 setTimeout(() => {
                     this.$router.push({name: 'bloglist'})
                 }, 1000);
             },
+            showEdit() {
+                this.editMode = !this.editMode;
+            },
+            update() {
+                this.ajax.post(`/blog/update`, {
+                    blog: this.blog,
+                }).then(res => {
+                    this.editMode = false;
+                });
+            }
         },
         mounted() {
             this.detail();

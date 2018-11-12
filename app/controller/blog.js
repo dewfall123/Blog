@@ -1,9 +1,23 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const fs = require('fs');
 
 class BlogController extends Controller {
 
+
+    /**
+     * 图片上传
+     */
+    async upload() {
+        const stream = await this.ctx.getFileStream();
+        const IMG_PATH = this.config.IMG_PATH;
+        await stream.pipe(fs.createWriteStream(IMG_PATH));
+        this.ctx.body = {
+            result: 0,
+            url: '',
+        };
+    }
 
     /**
      * 创建blog接口

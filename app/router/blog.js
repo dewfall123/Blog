@@ -16,4 +16,6 @@ module.exports = app => {
     blogRouter.get('/detail', controller.blog.detail);
     blogRouter.delete('/delete/:id', controller.blog.delete);
     blogRouter.post('/update', controller.blog.update);
+    // 图片上传
+    blogRouter.post('/upload', controller.blog.upload);
 };

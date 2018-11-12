@@ -40,6 +40,7 @@ axios.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
+
 const util = {
     title(title) {
         title = title ? title + ' - Home' : 'iView project';

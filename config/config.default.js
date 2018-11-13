@@ -61,9 +61,9 @@ module.exports = appInfo => {
             // 端口号
             port: '3306',
             // 用户名
-            user: 'zuofenghua',
+            user: '',
             // 密码
-            password: '614035',
+            password: '',
             // 数据库名
             database: 'blog',
         },

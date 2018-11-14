@@ -12,40 +12,40 @@ fs.open('./src/config/env.js', 'w', function(err, fd) {
     fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});
 });
 
-const outpath = path.join(__dirname, '../app/public/');
+const outpath = path.join(__dirname, '../app/public/dist/');
 module.exports = merge(webpackBaseConfig, {
     output: {
         path: outpath,
-        publicPath: './public/',
+        publicPath: '/public/dist/',
         filename: '[name].[hash].js',
         chunkFilename: '[name].[hash].chunk.js',
     },
     plugins: [
-        new CleanWebpackPlugin('../app/public/*', {
-            allowExternal: true
+        new CleanWebpackPlugin('../app/public/dist/*', {
+            allowExternal: true,
         }),
         new ExtractTextPlugin({
             filename: '[name].[hash].css',
-            allChunks: true
+            allChunks: true,
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendors',
-            filename: 'vendors.[hash].js'
+            filename: 'vendors.[hash].js',
         }),
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: '"production"'
-            }
+                NODE_ENV: '"production"',
+            },
         }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: false
-            }
+                warnings: false,
+            },
         }),
         new HtmlWebpackPlugin({
-            filename: '../view/blog/index.html',
+            filename: '../../view/blog/index.html',
             template: './src/template/index.ejs',
-            inject: false
-        })
-    ]
+            inject: false,
+        }),
+    ],
 });

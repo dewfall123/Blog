@@ -7,7 +7,7 @@
         <Row>
             <Input long placeholder="标题" v-model="title"></Input>
             <!-- <editor v-model="content"></editor> -->
-            <mavon-editor v-model="content" @save="preCommit" @imgAdd="imgAdd" ></mavon-editor>
+            <mavon-editor ref='md' v-model="content" @save="preCommit" @imgAdd="imgAdd" ></mavon-editor>
             <Row>
                 <Col :span="23"></Col>
             </Row>
@@ -72,10 +72,8 @@
                     method: 'post',
                     data: formdata,
                     headers: { 'Content-Type': 'multipart/form-data' },
-                }).then((url) => {
-                    // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
-                    // $vm.$img2Url 详情见本页末尾
-                    $vm.$img2Url(pos, url);
+                }).then((res) => {
+                    this.$refs.md.$img2Url(pos, res.data.url);
                 })
             },
         }, 

@@ -2,7 +2,6 @@ logs/
 npm-debug.log
 yarn-error.log
 node_modules/
-config/config.mysql.js
 app/public/
 package-lock.json
 yarn.lock
@@ -12,3 +11,4 @@ run/
 .DS_Store
 *.sw*
 *.un~
+config/config.local.js

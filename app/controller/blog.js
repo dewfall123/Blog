@@ -2,6 +2,7 @@
 
 const Controller = require('egg').Controller;
 const fs = require('fs');
+const path = require('path');
 
 class BlogController extends Controller {
 
@@ -11,11 +12,13 @@ class BlogController extends Controller {
      */
     async upload() {
         const stream = await this.ctx.getFileStream();
-        const IMG_PATH = this.config.IMG_PATH;
+        
+        const IMG_PATH = path.resolve(this.config.IMG_PATH + this.ctx.helper.filename(stream.filename));
+        const url = this.config.IMG_PREFIX + IMG_PATH.replace(path.resolve(this.config.IMG_PATH, '../../'), '').replace(/\\/g, '/');
         await stream.pipe(fs.createWriteStream(IMG_PATH));
         this.ctx.body = {
             result: 0,
-            url: '',
+            url,
         };
     }
 

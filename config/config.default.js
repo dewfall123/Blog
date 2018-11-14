@@ -9,6 +9,10 @@ module.exports = appInfo => {
     // add your config here
     config.middleware = [];
 
+    // 图片存储路径
+    config.IMG_PATH = './app/public/imgs/';
+    config.IMG_PREFIX = 'http://127.0.0.1:7001';
+
     config.security = {
         csrf: false,
     };
@@ -24,6 +28,10 @@ module.exports = appInfo => {
         },
     };
 
+    // 静态资源路径
+    config.assets = {
+        publicPath: '/public/',
+    };
 
     config.onerror = {
         all(err, ctx) {
@@ -51,26 +59,6 @@ module.exports = appInfo => {
             };
             ctx.status = 500;
         },
-    };
-
-    config.mysql = {
-        // 单数据库信息配置
-        client: {
-            // host
-            host: '47.106.130.217',
-            // 端口号
-            port: '3306',
-            // 用户名
-            user: '',
-            // 密码
-            password: '',
-            // 数据库名
-            database: 'blog',
-        },
-        // 是否加载到 app 上，默认开启
-        app: true,
-        // 是否加载到 agent 上，默认关闭
-        agent: false,
     };
 
     return config;

@@ -8,6 +8,7 @@ class BlogService extends Service {
      * create
      */
     async insert(uid = 1, title, content, summary = '', tags, firstImg = '', weather = 'sunny') {
+        summary = this.ctx.helper.summary(content);
         const blog = {
             title,
             content,
@@ -53,6 +54,7 @@ class BlogService extends Service {
             editCount: +blog.editCount + 1,
             lastEditTime: new Date().getTime(),
         });
+        blog.summary = this.ctx.helper.summary(blog.content);
         const { affectedRows: result } = await this.app.mysql.update('blog', blog);
         return result;
     }

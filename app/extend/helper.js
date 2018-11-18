@@ -1,8 +1,11 @@
 // app/extend/helper.js
 'use strict';
 const assert = require('assert');
+
 const utility = require('utility');
 const is = require('is-type-of');
+const markdown = require('markdown').markdown;
+const cheerio = require('cheerio');
 
 module.exports = {
 
@@ -25,5 +28,16 @@ module.exports = {
         } catch (err) {
             return utility.md5(name);
         }
+    },
+
+    /**
+     * 分离markdown标签
+     * @param {*} str
+     */
+    summary(str) {
+        const html = markdown.toHTML(str);
+        const $html = cheerio.load(html);
+        const sLength = this.config.summary.length || 150;
+        return $html.text().replace(/\s/g, ' ').substr(0, sLength) + '...';
     },
 };

@@ -19,7 +19,7 @@
                                         <span class="time">{{dayjs(+blogI.createTime).fromNow()}}</span>
                                     </Row>
                                     <!-- 简略文字 -->
-                                    <Row class="blog-content">{{blogI.content}}</Row>
+                                    <Row class="blog-content">{{blogI.summary}}</Row>
                                 </Col>
                                 <!-- 图片 -->
                                 <Col :span="6"></Col>

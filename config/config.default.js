@@ -13,6 +13,15 @@ module.exports = appInfo => {
     config.IMG_PATH = './app/public/imgs/';
     config.IMG_PREFIX = 'http://127.0.0.1:7001';
 
+    config.md = {
+        tags: [ '' ],
+    };
+
+    // 摘要配置
+    config.summary = {
+        length: 150,
+    };
+
     config.security = {
         csrf: false,
     };

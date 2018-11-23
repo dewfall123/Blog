@@ -13,5 +13,12 @@ module.exports = appInfo => {
     config.IMG_PATH = './app/public/imgs/';
     config.IMG_PREFIX = 'http://47.106.130.217:7001';
 
+    exports.cluster = {
+        listen: {
+            port: 7001,
+            hostname: '127.0.0.1',
+        },
+    };
+
     return config;
 };

@@ -42,6 +42,7 @@ module.exports = appInfo => {
         publicPath: '/public/',
     };
 
+
     config.onerror = {
         all(err, ctx) {
             // 在此处定义针对所有响应类型的错误处理方法

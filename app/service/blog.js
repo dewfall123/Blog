@@ -21,12 +21,12 @@ class BlogService extends Service {
             firstImg,
             weather,
         };
-        const { affectedRows: result } = await this.app.mysql.insert('blog', blog);
+        const { affectedRows: result } = await this.app.mysqlInstance.insert('blog', blog);
         return result;
     }
 
     async select(uid, pageIndex = 1, pageSize = 10) {
-        const list = await this.app.mysql.select('blog', {
+        const list = await this.app.mysqlInstance.select('blog', {
             where: { createUser: uid },
             orders: [[ 'createTime', 'desc' ]],
             limit: pageSize,
@@ -36,12 +36,12 @@ class BlogService extends Service {
     }
 
     async read(uid, id) {
-        const blog = await this.app.mysql.get('blog', { createUser: uid, id });
+        const blog = await this.app.mysqlInstance.get('blog', { createUser: uid, id });
         return blog;
     }
 
     async delete(uid, id) {
-        const { affectedRows: result } = await this.app.mysql.delete('blog', { createUser: uid, id });
+        const { affectedRows: result } = await this.app.mysqlInstance.delete('blog', { createUser: uid, id });
         return result;
     }
 
@@ -55,7 +55,7 @@ class BlogService extends Service {
             lastEditTime: new Date().getTime(),
         });
         blog.summary = this.ctx.helper.summary(blog.content);
-        const { affectedRows: result } = await this.app.mysql.update('blog', blog);
+        const { affectedRows: result } = await this.app.mysqlInstance.update('blog', blog);
         return result;
     }
 }

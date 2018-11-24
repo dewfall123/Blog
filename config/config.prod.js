@@ -20,5 +20,11 @@ module.exports = appInfo => {
         },
     };
 
+    exports.alinode = {
+        // 从 `Node.js 性能平台` 获取对应的接入参数
+        appid: '77143',
+        secret: 'e7f85995903c4557c5e27b930384e9118cec764e',
+    };
+
     return config;
 };

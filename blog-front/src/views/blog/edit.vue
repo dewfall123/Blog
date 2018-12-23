@@ -19,7 +19,7 @@
 
 
     export default {
-        name: 'blogEdit',
+        name: 'BlogEdit',
         components: {
             // Editor,
         },
@@ -27,58 +27,49 @@
             return {
                 title: this.dayjs().format('MM月DD日'),
                 content: '',
-            }
+            };
         },
         methods: {
-            commitBlog() {
-                console.log('提交：' + this.content);
-                this.ajax.post('/blog/insert',{
+            async update() {
+                await this.ajax.post('/api/blog', {
                     title: this.title,
                     content: this.content,
-                }).then(res => {
-                    
-                    setTimeout(() => {
-                        this.$router.push({name: 'bloglist'})
-                    }, 1000);
                 });
+                setTimeout(() => {
+                    this.goto({ name: 'bloglist' });
+                }, 1000);
             },
-
             // 弹出提交确认
-            preCommit () {
+            preCommit() {
                 if (!this.title) {
-                    return this.$Modal.warning({title: '^_^', content: '请输入标题!'});
+                    return this.$Modal.warning({ title: '^_^', content: '请输入标题!' });
                 }
                 if (!this.content) {
-                    return this.$Modal.warning({title: '^_^', content: '内容不能为空!'});
+                    return this.$Modal.warning({ title: '^_^', content: '内容不能为空!' });
                 }
                 this.$Modal.confirm({
                     title: '确认发布?',
                     content: `<p>发布文章<h3>${this.title}</h3></p>`,
                     onOk: () => {
-                        this.commitBlog();
+                        this.update();
                     },
                     onCancel: () => {
-                        //
-                    }
+                    },
                 });
             },
             // 图片上传的方法
-            imgAdd(pos, $file){
+            async imgAdd(pos, $file) {
                 // 第一步.将图片上传到服务器.
-                var formdata = new FormData();
+                const formdata = new FormData();
                 formdata.append('image', $file);
-                this.ajax({
-                    url: '/blog/upload',
+                const res = await this.ajax({
+                    url: '/api/img/upload',
                     method: 'post',
                     data: formdata,
                     headers: { 'Content-Type': 'multipart/form-data' },
-                }).then((res) => {
-                    this.$refs.md.$img2Url(pos, res.data.url);
-                })
+                });
+                this.$refs.md.$img2Url(pos, res.data.url);
             },
-        }, 
-        mounted() {
-            
         },
     };
 </script>

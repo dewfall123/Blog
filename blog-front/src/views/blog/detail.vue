@@ -38,10 +38,11 @@
 </template>
 <script>
     import logo from '../../assets/images/title.png';
-import { setTimeout } from 'timers';
+    import link from '../mixins/link.js';
 
     export default {
-        name: 'blogdetail',
+        name: 'BlogDetail',
+        mixins: [ link ],
         data() {
             return {
                 logo,
@@ -54,49 +55,40 @@ import { setTimeout } from 'timers';
                     createUser: '',
                 },
                 editMode: false,
-            }
+            };
         },
         methods: {
-            detail() {
+            async show() {
                 if (!this.$route.params.id) {
-                    this.$Modal.error({title: '^-^', content: '参数异常'});
+                    this.$Modal.error({ title: '^-^', content: '参数异常' });
                     this.backToList();
                     return;
                 }
-                this.ajax.get('/blog/detail',{
-                    params: {
-                    id: this.$route.params.id,
-                }}).then(res => {
-                    if (+res.data.result === 0) {
-                        this.blog = res.data.blog;
-                        console.log(JSON.stringify(this.blog));
-                    }
-                });
+                const res = await this.ajax.get(`/api/blogs/${this.$route.params.id}`);
+                if (+res.data.result === 0) {
+                    this.blog = res.data.blog;
+                    console.log(JSON.stringify(this.blog));
+                }
             },
-            deleteBlog() {
-                this.ajax.delete(`/blog/delete/${this.$route.params.id}`
-                ).then(res => {
-                    this.backToList();
-                });
+            async deleteBlog() {
+                await this.ajax.delete(`/api/blogs/${this.$route.params.id}`);
+                this.backToList();
             },
             backToList() {
                 setTimeout(() => {
-                    this.$router.push({name: 'bloglist'})
+                    this.goto({ name: 'BlogList' });
                 }, 1000);
             },
             showEdit() {
                 this.editMode = !this.editMode;
             },
-            update() {
-                this.ajax.post(`/blog/update`, {
-                    blog: this.blog,
-                }).then(res => {
-                    this.editMode = false;
-                });
-            }
+            async update() {
+                await this.ajax.put(`/api/blogs/${this.blog.id}`, { blog: this.blog });
+                this.editMode = false;
+            },
         },
         mounted() {
-            this.detail();
+            this.show();
         },
     };
 </script>

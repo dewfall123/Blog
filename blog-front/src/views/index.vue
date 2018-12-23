@@ -3,16 +3,21 @@
 </style>
 
 <template>
-    <div class="body">
-        <canvas class="background-canvas"></canvas>
+    <div class="app">
         <nav class="navbar-header">
-            <Avatar :src="logo" size="large" />
-            <span class="title" @click="goto('bloglist')">首页</span>
-            <Input class="header-search" 
-                @on-blur="topInputFocus = false" 
-                @on-focus="topInputFocus = true"
-                search placeholder="Enter something..." />
-            <Button shape="circle"  @click="goto('blogedit')">写Blog</Button>
+            <div class="nav-left">
+                <div class="icon-title">
+                    <Icon type="ios-planet-outline" size="38"/>
+                    <span class="title" @click="goto({name: 'BlogList'})">Z-blog</span>
+                </div>
+                <Input class="header-search" 
+                    @on-blur="topInputFocus = false" 
+                    @on-focus="topInputFocus = true"
+                    search placeholder="Enter something..." />
+            </div>
+            <div class="nav-right">
+                <Button shape="circle"  @click="goto({name: 'BlogEdit'})">写Blog</Button>
+            </div>
         </nav>
         <main class="container">
             <router-view></router-view>
@@ -23,25 +28,19 @@
 </template>
 <script>
     import logo from '../assets/images/title.png';
-    import '../assets/js/star.js';
+    import link from './mixins/link.js';
 
     export default {
+        mixins: [ link ],
+        components: {
+        },
         data() {
             return {
                 logo,
                 topInputFocus: false,
-            }
+            };
         },
         methods: {
-            handleStart() {
-                this.$Modal.info({
-                    title: 'Bravo',
-                    content: 'Now, enjoy the convenience of iView.'
-                });
-            },
-            goto(name) {
-                this.$router.push({name});
-            }
-        }
+        },
     };
 </script>

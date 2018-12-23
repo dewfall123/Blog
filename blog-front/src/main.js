@@ -7,10 +7,9 @@ import Util from './libs/util';
 import mavonEditor from 'mavon-editor';
 
 import 'iview/dist/styles/iview.css';
-import 'mavon-editor/dist/css/index.css'
+import 'mavon-editor/dist/css/index.css';
 
 import App from './app.vue';
-import util from './libs/util';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -24,7 +23,7 @@ Vue.use(Util);
 // 路由配置
 const RouterConfig = {
     // mode: 'history',
-    routes: Routers
+    routes: Routers,
 };
 const router = new VueRouter(RouterConfig);
 
@@ -52,15 +51,15 @@ const store = new Vuex.Store({
     },
     actions: {
 
-    }
+    },
 });
 
 
 new Vue({
     el: '#app',
-    router: router,
-    store: store,
+    router,
+    store,
     components: {
     },
-    render: h => h(App)
+    render: h => h(App),
 });

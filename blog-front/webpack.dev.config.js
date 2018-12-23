@@ -11,8 +11,8 @@ const fs = require('fs');
 
 //     });
 // });
-fs.writeFile('./src/config/env.js', 'export default "development";', function(err, result) {
-    if(err) {
+fs.writeFile('./src/config/env.js', 'export default "development";', function(err) {
+    if (err) {
         console.log(err);
     }
 });
@@ -26,7 +26,7 @@ module.exports = merge(webpackBaseConfig, {
     },
     devServer: {
         proxy: {
-            '/blog': "http://localhost:7001"
+            '/api': "http://localhost:7001",
         }
     },
     plugins: [

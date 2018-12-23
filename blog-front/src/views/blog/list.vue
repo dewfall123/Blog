@@ -42,33 +42,32 @@
     </div>
 </template>
 <script>
+    import link from '../mixins/link.js';
 
     export default {
-        name: 'blogList',
+        name: 'BlogList',
+        mixins: [ link ],
         data() {
             return {
                 pageIndex: 1,
                 pageSize: 10,
                 blogList: [],
-            }
+            };
         },
         methods: {
-            list() {
-                this.ajax.post('/blog/list',{
-                }).then(res => {
-                    if (+res.data.result === 0) {
-                        this.blogList = res.data.blogList;
-                    }
-                });
+            async blogs() {
+                const res = await this.ajax.get('/api/blogs');
+                this.blogList = res.data.blogList;
             },
             showDetail(id) {
-                console.log('前往详情页面');
-                this.$router.push({name: 'blogdetail',  params: { id }});
+                this.goto({
+                    name: 'BlogDetail',
+                    params: { id },
+                });
             },
         },
         mounted() {
-            // debugger;
-            this.list();
+            this.blogs();
         },
     };
 </script>

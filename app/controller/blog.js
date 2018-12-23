@@ -24,7 +24,7 @@ class BlogController extends Controller {
     /**
      * 创建blog接口
      */
-    async insert() {
+    async create() {
         const { title, content, tags, firstImg, weather } = this.ctx.request.body;
         const uid = this.ctx.session.uid || '1';
         const summary = content; // TODO
@@ -38,7 +38,7 @@ class BlogController extends Controller {
     /**
      * 获取blog列表接口
      */
-    async list() {
+    async index() {
         const uid = this.ctx.session.uid || '1';
         const { pageIndex, pageSize } = this.ctx.request.body;
 
@@ -53,9 +53,9 @@ class BlogController extends Controller {
     /**
      * 查询单个blog
      */
-    async detail() {
+    async show() {
         const uid = this.ctx.session.uid || '1';
-        const { id } = this.ctx.query;
+        const { id } = this.ctx.params;
 
         const blog = await this.service.blog.read(uid, +id);
 
@@ -69,7 +69,7 @@ class BlogController extends Controller {
     /**
      * 删除
      */
-    async delete() {
+    async destroy() {
         const uid = this.ctx.session.uid || '1';
         const { id } = this.ctx.params;
 

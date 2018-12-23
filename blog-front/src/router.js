@@ -1,36 +1,37 @@
-const routers = [{
+const routers = [
+    {
         path: '/',
         redirect: '/blog/list',
         meta: {
-            title: ''
+            title: '',
         },
-        component: (resolve) => require(['./views/index.vue'], resolve),
+        component: resolve => require([ './views/index.vue' ], resolve),
         children: [
             {
                 path: '/blog/edit',
-                name: 'blogedit',
+                name: 'BlogEdit',
                 meta: {
-                    title: '编辑'
+                    title: '编辑',
                 },
-                component: (resolve) => require(['./views/blog/edit.vue'], resolve)
+                component: resolve => require([ './views/blog/edit.vue' ], resolve),
             },
             {
                 path: '/blog/list',
-                name: 'bloglist',
+                name: 'BlogList',
                 meta: {
-                    title: '列表'
+                    title: '列表',
                 },
-                component: (resolve) => require(['./views/blog/list.vue'], resolve)
+                component: resolve => require([ './views/blog/list.vue' ], resolve),
             },
             {
                 path: '/blog/detail',
-                name: 'blogdetail',
+                name: 'BlogDetail',
                 meta: {
-                    title: '详情'
+                    title: '详情',
                 },
-                component: (resolve) => require(['./views/blog/detail.vue'], resolve)
+                component: resolve => require([ './views/blog/detail.vue' ], resolve),
             },
-        ]
+        ],
     },
 ];
 export default routers;

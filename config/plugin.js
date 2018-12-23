@@ -15,7 +15,7 @@ exports.ejs = {
 
 
 exports.routerPlus = {
-    enable: true,
+    enable: false,
     package: 'egg-router-plus',
 };
 

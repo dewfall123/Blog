@@ -4,26 +4,32 @@
 
 <template>
     <div class="app">
-        <nav class="navbar-header">
-            <div class="nav-left">
-                <div class="icon-title">
+        <header class="navbar-header">
+            <div class="container">
+                <div class="nav-left">
                     <Icon type="ios-planet-outline" size="38"/>
-                    <span class="title" @click="goto({name: 'BlogList'})">Z-blog</span>
+                    <p class="title" @click="goto({name: 'BlogList'})">Z-blog</p>
                 </div>
-                <Input class="header-search" 
-                    @on-blur="topInputFocus = false" 
-                    @on-focus="topInputFocus = true"
-                    search placeholder="Enter something..." />
+                <div class="nav-center">
+                    <Input class="header-search" 
+                        @on-blur="topInputFocus = false" 
+                        @on-focus="topInputFocus = true"
+                        prefix="ios-search" placeholder="Enter something..." />
+                </div>
+                <div class="nav-right">
+                    <Button shape="circle"  @click="goto({name: 'BlogEdit'})">写Blog</Button>
+                </div>
             </div>
-            <div class="nav-right">
-                <Button shape="circle"  @click="goto({name: 'BlogEdit'})">写Blog</Button>
-            </div>
-        </nav>
+        </header>
         <main class="container">
             <router-view></router-view>
             <BackTop :height="100"></BackTop>
         </main>
-        <footer></footer>
+        <footer>
+            <a target="_blank">粤ICP备18148812号</a>
+            <Divider type="vertical" />
+            <a href="https://github.com/dewfall123" target="_blank">Copyright @dewfall123 <Icon type="logo-github"  size="18"/></a>
+        </footer>
     </div>
 </template>
 <script>

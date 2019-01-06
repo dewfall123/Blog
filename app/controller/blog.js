@@ -40,12 +40,14 @@ class BlogController extends Controller {
      */
     async index() {
         const uid = this.ctx.session.uid || '1';
-        const { pageIndex, pageSize } = this.ctx.request.body;
+        const { pageIndex, pageSize } = this.ctx.query;
 
         const blogList = await this.service.blog.select(uid, pageIndex, pageSize);
+        const count = await this.service.blog.count();
         this.ctx.body = {
             result: 0,
             blogList,
+            count,
         };
     }
 

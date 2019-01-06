@@ -29,7 +29,7 @@ class BlogService extends Service {
         const list = await this.app.mysqlInstance.select('blog', {
             where: { createUser: uid },
             orders: [[ 'createTime', 'desc' ]],
-            limit: pageSize,
+            limit: +pageSize,
             offset: (+pageIndex - 1) * pageSize,
         });
         return list;
@@ -57,6 +57,16 @@ class BlogService extends Service {
         blog.summary = this.ctx.helper.summary(blog.content);
         const { affectedRows: result } = await this.app.mysqlInstance.update('blog', blog);
         return result;
+    }
+
+    /**
+     * 计算总数
+     * @param {Object} filter 筛选条件
+     * @returns {number} count
+     */
+    async count(filter = {}) {
+        const count = await this.app.mysqlInstance.count('blog', filter);
+        return count;
     }
 }
 

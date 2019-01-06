@@ -31,7 +31,7 @@
         },
         methods: {
             async update() {
-                await this.ajax.post('/api/blog', {
+                await this.ajax.post('/api/blogs', {
                     title: this.title,
                     content: this.content,
                 });

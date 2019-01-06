@@ -1,6 +1,16 @@
-html,body {
-    width: 100%;
+@hover-color: #ff8b18;
+
+:root {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+:root body{ 
+    position: absolute;
     height: 100%;
+}
+body {
+    width: 100vw;
+    // width: 100%;
 }
 li {
     list-style: none;
@@ -16,47 +26,101 @@ li {
     .navbar-header {
         position: fixed;
         height: 70px;
-        padding: 0 15px;
-        
-        width: 1080px;
-        margin: 0 auto;
+        width: 100%;
         border-bottom: 1px solid #f0f0f0;
         display: flex;
-        justify-content: middle;
+        justify-content: center;
         align-items: center;
         z-index: 10;
+        background: #fff;
         box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-        .nav-left {
+        
+        .container {
+            position: absolute;
+            width: 100%;
+            max-width: 1080px;
+            min-width: 340px;
+            height: 70px;
+            margin: 0 auto;
+            padding: 0 15px;
             display: flex;
             align-items: center;
-            width: 60%;
-            .icon-title {
+            justify-content: space-around;
+            .nav-left {
                 display: flex;
                 align-items: center;
+                i {
+                    margin: 0 8px;
+                }
                 .title {
                     padding-top: 5px;
                     font-size: 18px;
                     color: #333;
                     cursor: pointer;
+                    width: 120px;
                 }
             }
-            .header-search {
-                display: inline-block;
-                min-width: 140px;
-                max-width: 240px;
-                border-radius: 50%;
+            .nav-center {
+                .header-search {
+                    display: inline-block;
+                    min-width: 140px;
+                    max-width: 240px;
+                    border-radius: 50%;
+                    border: none !important;
+                }
+            }
+            .nav-right {
+                width: 60%;
+                display: flex;
+                justify-content: flex-end;
             }
         }
-        .nav-right {
-            width: 40%;
+        // @media screen and (max-width: 1200px) {
+        //     .container {
+        //         width: 1080px;
+        //     }
+        // }
+        // @media screen and (max-width: 992px) {
+        //     .container {
+        //         width: 640px;
+        //     }
+        // }
+        // @media screen and (max-width: 720px) {
+        //     .app > .nav-center > .container {
+        //         width: 100%;
+        //     }
+        // }
+    }
+    > .container {
+        margin-top: 70px;
+        min-height: calc(~"100% - 70px - 60px");
+    }
+    > footer {
+        height: 60px;;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        > a {
+            color: #666;
+            cursor: pointer;
+        }
+        :hover {
+            color: @hover-color;
         }
     }
-    .container {
-        margin-top: 58px;
-    }
-    .delete-button {
-        // color: 
-    }
+}
+
+// 滚动条样式
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+::-webkit-scrollbar-track {
+    background-color: #ddd;
 }
 
 

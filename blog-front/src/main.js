@@ -5,6 +5,7 @@ import Routers from './router';
 import Vuex from 'vuex';
 import Util from './libs/util';
 import mavonEditor from 'mavon-editor';
+import Lazyload from 'vue-lazyload-img';
 
 import 'iview/dist/styles/iview.css';
 import 'mavon-editor/dist/css/index.css';
@@ -15,6 +16,13 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(iView);
 Vue.use(mavonEditor);
+Vue.use(Lazyload, {
+    time: 300,
+    fade: true,
+    speed: 0,
+    // px
+    preload: 500,
+});
 
 // 自定义的方法
 Vue.use(Util);

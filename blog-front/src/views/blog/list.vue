@@ -6,13 +6,14 @@
     <section class="container">
         <div class="list"
         >
-            <article v-for="(blogI) in blogList" :key="blogI.id"
+            <article v-for="(blogI, index) in blogList" :key="blogI.id"
                 v-show="testShow"
                 :class="'blog-card'"
                 @click="showDetail(blogI.id)">
                 <p class="title">
                     <span class="title-content">{{blogI.title}}</span>
                 </p>
+                <img v-lazyload="img" :src="img"></img>
                 <p class="content">{{blogI.summary}}</p>
                 <div class="footer">
                     <div class="footer-icons">
@@ -50,12 +51,15 @@
 </template>
 <script>
     import link from '../mixins/link.js';
+    import img from '../../assets/images/loadingscreen_tga.png';
 
     export default {
         name: 'BlogList',
         mixins: [ link ],
         data() {
             return {
+                img0: '../../assets/images/title.png',
+                img,
                 pageIndex: 1,
                 pageSize: 9,
                 blogList: [],

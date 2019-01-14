@@ -13,7 +13,7 @@
                 <p class="title">
                     <span class="title-content">{{blogI.title}}</span>
                 </p>
-                <img v-lazyload="img" :src="img"></img>
+                <img v-lazyload="imgList[blogI.id]" :src="defaultImg"></img>
                 <p class="content">{{blogI.summary}}</p>
                 <div class="footer">
                     <div class="footer-icons">
@@ -44,28 +44,37 @@
                 @on-page-size-change="sizeChange"
                 @on-change="blogs"/>
         </div>
-        <aside>
+        <!-- <aside>
             <Button @click="testTransition">测试</Button>
-        </aside>
+        </aside> -->
     </section>
 </template>
 <script>
     import link from '../mixins/link.js';
-    import img from '../../assets/images/loadingscreen_tga.png';
+    import defaultImg from '../../assets/images/title.png';
 
     export default {
         name: 'BlogList',
         mixins: [ link ],
         data() {
             return {
-                img0: '../../assets/images/title.png',
-                img,
+                defaultImg,
+                validImgNum: 24,
                 pageIndex: 1,
                 pageSize: 9,
                 blogList: [],
                 count: -1,
                 testShow: true,
             };
+        },
+        computed: {
+            imgList() {
+                const result = [];
+                (this.blogList || []).forEach(i => {
+                    result[i.id] = require('../../assets/images/' + i.id % this.validImgNum + '.png');
+                });
+                return result;
+            },
         },
         methods: {
             async blogs(i) {

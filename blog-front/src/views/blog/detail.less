@@ -1,42 +1,34 @@
+#colors() {
+    h1: #222;
+}
 .detail-page {
     width: 100%;
-    // height: 100%;
-    color: #969696;
-    .title {
-        margin: 30px 2px;
-        color: #000;
-    }
-    .author {
-        margin: 30px 2px;
-        height: 48px;
-        position: relative;
-        img {
-            border-radius: 48px;
-            width: 48px;
-            height: 48px;
+    .container {
+        width: 650px;
+        margin: 0 auto;
+        color: #969696;
+        padding-top: 32px;
+        .title {
+            font-size: 22px;
+            line-height: 1.8;
+            font-weight: 400;
+            color: #colors[h1];
         }
-        .info {
-            position: absolute;
-            left: 48px;
-            div {
-                margin-left: 8px;
-                height: 20px;
-                line-height: 20px;
-            }
-            .name {
-                color: #2f2f2f;
-                height: 25px;
-                line-height: 25px;
-                font-size: 16px;
-            }
-            .tags {
-                height: 15px;
-                line-height: 15px;
+        .icons {
+            margin-top: 16px;
+        }
+        .tags {
+            padding: 16px 0 8px 0;
+            border-bottom: 1px dashed #999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            >span {
+                color: #515a6e;
+                > i {
+                    vertical-align: -2px;
+                }
             }
         }
-    }
-    .content {
-        min-height: 300px;
-        position: relative;
     }
 }

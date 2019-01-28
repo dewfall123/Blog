@@ -7,12 +7,12 @@ class BlogService extends Service {
     /**
      * create
      */
-    async insert(uid = 1, title, content, summary = '', tags, firstImg = '', weather = 'sunny') {
+    async insert(uid = 1, title, content, summary = '', tags, firstImg = '', weather = 'sunny', htmlContent) {
         summary = this.ctx.helper.summary(content);
         const blog = {
             title,
             content,
-            tags,
+            tags: JSON.stringify(tags),
             createTime: new Date().getTime(),
             lastEditTime: new Date().getTime(),
             createUser: uid,
@@ -20,6 +20,7 @@ class BlogService extends Service {
             editCount: 0,
             firstImg,
             weather,
+            htmlContent,
         };
         const { affectedRows: result } = await this.app.mysqlInstance.insert('blog', blog);
         return result;
@@ -32,11 +33,19 @@ class BlogService extends Service {
             limit: +pageSize,
             offset: (+pageIndex - 1) * pageSize,
         });
+        list.forEach(i => {
+            try {
+                i.tags = JSON.parse(i.tags);
+            } catch (err) {
+                i.tags = [];
+            }
+        });
         return list;
     }
 
     async read(uid, id) {
         const blog = await this.app.mysqlInstance.get('blog', { createUser: uid, id });
+        blog.tags = blog.tags ? JSON.parse(blog.tags) : [];
         return blog;
     }
 
@@ -51,6 +60,7 @@ class BlogService extends Service {
      */
     async update(blog) {
         Object.assign(blog, {
+            tags: JSON.stringify(blog.tags),
             editCount: +blog.editCount + 1,
             lastEditTime: new Date().getTime(),
         });

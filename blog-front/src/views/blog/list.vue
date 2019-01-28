@@ -15,25 +15,7 @@
                 </p>
                 <img v-lazyload="imgList[blogI.id]" :src="defaultImg"></img>
                 <p class="content">{{blogI.summary}}</p>
-                <div class="footer">
-                    <div class="footer-icons">
-                        <div>
-                            <Icon type="md-calendar" :size="16" />
-                            <span>{{dayjs(+blogI.createTime).format('YYYY-MM-DD')}}</span>
-                        </div>
-                        <div>
-                            <Icon type="ios-eye" :size="18"/>
-                            <span>{{blogI.see || 0}}</span>
-                        </div>
-                        <div>
-                            <Icon type="md-chatboxes" :size="16"/>
-                            <span>{{blogI.comment || 0}}</span>
-                        </div>
-                    </div>
-                    <!-- 作者 -->
-                    <!-- 点赞 -->
-                    <!-- 评论数 -->
-                </div>
+                <Tags :blogI="blogI"></Tags>
             </article>
         </div>
         <div class="page">
@@ -52,10 +34,12 @@
 <script>
     import link from '../mixins/link.js';
     import defaultImg from '../../assets/images/title.png';
+    import Tags from './components/tags.vue';
 
     export default {
         name: 'BlogList',
         mixins: [ link ],
+        components: { Tags },
         data() {
             return {
                 defaultImg,

@@ -16,7 +16,7 @@ const routers = [
                 component: resolve => require([ './views/blog/edit.vue' ], resolve),
             },
             {
-                path: '/blog/list',
+                path: '/blogs',
                 name: 'BlogList',
                 meta: {
                     title: '列表',
@@ -24,7 +24,7 @@ const routers = [
                 component: resolve => require([ './views/blog/list.vue' ], resolve),
             },
             {
-                path: '/blog/detail',
+                path: '/blogs/:id',
                 name: 'BlogDetail',
                 meta: {
                     title: '详情',

@@ -25,10 +25,10 @@ class BlogController extends Controller {
      * 创建blog接口
      */
     async create() {
-        const { title, content, tags, firstImg, weather } = this.ctx.request.body;
+        const { title, content, htmlContent, tags, firstImg, weather } = this.ctx.request.body;
         const uid = this.ctx.session.uid || '1';
         const summary = content; // TODO
-        const insertResult = await this.service.blog.insert(uid, title, content, summary, tags, firstImg, weather);
+        const insertResult = await this.service.blog.insert(uid, title, content, summary, tags, firstImg, weather, htmlContent);
         this.ctx.body = {
             result: insertResult === 1 ? 0 : -1,
             msg: insertResult === 1 ? '创建成功' : '创建失败',

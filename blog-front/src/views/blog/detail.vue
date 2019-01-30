@@ -19,7 +19,7 @@
                     {{dayjs(+blog.createTime).format('HH:mm:ss')}}
                 </span>
             </div>
-            <article class="markdown" v-html="blog.htmlContent">
+            <article id="markdown" class="markdown" v-html="blog.htmlContent">
             </article>
             <Row type="flex" justify="end">
                 <Button type="text" @click="update" v-show="editMode">保存</Button>
@@ -32,6 +32,7 @@
                     <Button type="text" class="delete-button" v-show="!editMode">删除</Button>
                 </Poptip>
             </Row>
+            <MdCatalog markdownId="markdown"></MdCatalog>
         </div>
     </article>
 </template>
@@ -39,11 +40,15 @@
     import logo from '../../assets/images/title.png';
     import link from '../mixins/link.js';
     import Tags from './components/tags.vue';
+    import MdCatalog from '../../components/md-catalog';
 
     export default {
         name: 'BlogDetail',
         mixins: [ link ],
-        components: { Tags },
+        components: {
+            Tags,
+            MdCatalog,
+        },
         data() {
             return {
                 logo,

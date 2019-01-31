@@ -7,9 +7,10 @@ const fs = require('fs');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-fs.open('./src/config/env.js', 'w', function(err, fd) {
-    const buf = 'export default "production";';
-    fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});
+fs.writeFile('./src/config/env.js', 'export default "production";', function(err) {
+    if (err) {
+        console.log(err);
+    }
 });
 
 const outpath = path.join(__dirname, '../app/public/dist/');

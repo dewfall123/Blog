@@ -1,7 +1,7 @@
 const routers = [
     {
         path: '/',
-        redirect: '/blog/list',
+        redirect: '/blogs',
         meta: {
             title: '',
         },

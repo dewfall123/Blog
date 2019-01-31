@@ -32,7 +32,7 @@
                     <Button type="text" class="delete-button" v-show="!editMode">删除</Button>
                 </Poptip>
             </Row>
-            <MdCatalog markdownId="markdown"></MdCatalog>
+            <MdCatalog :markdownId="markdownId"></MdCatalog>
         </div>
     </article>
 </template>
@@ -62,6 +62,7 @@
                     htmlCOntent: '',
                 },
                 editMode: false,
+                markdownId: '',
             };
         },
         methods: {
@@ -94,8 +95,13 @@
                 this.editMode = false;
             },
         },
-        mounted() {
-            this.show();
+        async created() {
+        },
+        async mounted() {
+            await this.show();
+            this.$nextTick(() => {
+                this.markdownId = 'markdown';
+            });
         },
     };
 </script>

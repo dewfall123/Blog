@@ -17,6 +17,7 @@
                         prefix="ios-search" placeholder="Enter something..." />
                 </div>
                 <div class="nav-right">
+                    <span class="username">{{username}}</span>
                     <Button shape="circle"  @click="goto({name: 'BlogEdit'})">写Blog</Button>
                 </div>
             </div>

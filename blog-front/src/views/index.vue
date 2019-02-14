@@ -17,11 +17,12 @@
                         prefix="ios-search" placeholder="Enter something..." />
                 </div>
                 <div class="nav-right">
-                    <span class="username">{{username}}</span>
+                    <!-- <span class="username">{{username}}</span> -->
                     <Button shape="circle"  @click="goto({name: 'BlogEdit'})">写Blog</Button>
                 </div>
             </div>
         </header>
+        <img class="top-img" :src="topImg" />
         <main class="container">
             <router-view></router-view>
             <BackTop :height="100"></BackTop>
@@ -35,6 +36,7 @@
 </template>
 <script>
     import logo from '../assets/images/title.png';
+    import topImg from '../assets/images/chuanzhang.png';
     import link from './mixins/link.js';
 
     export default {
@@ -44,6 +46,7 @@
         data() {
             return {
                 logo,
+                topImg,
                 topInputFocus: false,
             };
         },

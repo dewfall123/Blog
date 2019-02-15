@@ -1,5 +1,23 @@
-.edit-content {
-    .markdown {
-        
+.container {
+    display: flex;
+    padding: 12px 0px;
+    justify-content: space-around;
+    min-height: calc(~"100vh - 55px - 60px");
+    .edit {
+        width: 48.5%;
+        padding: 0 8px;
+        border-right: 1px dashed #aaa;
+        .markdown-edit{
+            min-height: 500px;
+        }
+    }
+    > article {
+        padding: 16px;
+        width: 48.5%;
+    }
+    .commit {
+        position: fixed;
+        top: 70px;
+        right: 20px;
     }
 }

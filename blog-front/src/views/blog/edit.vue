@@ -1,43 +1,53 @@
-<style lang="less">
+<style lang="less" scoped>
     @import './edit.less';
 </style>
 
 <template>
-    <div class="edit-content">
-        <Row>
+    <div class="container">
+        <div class="edit">
+            <p>标题:</p>
             <Input long placeholder="标题" v-model="title"></Input>
+            <p>标签:</p>
             <ArrInput placeholder="标签" v-model="tags"></ArrInput>
-            <!-- <editor v-model="content"></editor> -->
             <mavon-editor ref='md'
-                class="markdown"
+                class="markdown-edit"
                 v-model="content"
                 @save="preCommit"
-                :navigation="true"
+                @change="contentChange"
+                :navigation="false"
+                :subfield="false"
                 @imgAdd="imgAdd" >
             </mavon-editor>
             <Row>
                 <Col :span="23"></Col>
             </Row>
-        </Row>
+        </div>
+        <Markdown :html="htmlContent"></Markdown>
+        <div class="commit" >
+            <Button  @click="preCommit" type="primary">提交</Button>
+        </div>
     </div>
 </template>
 <script>
     // import Editor from '../../components/editor.vue';
     import ArrInput from '../../components/arr-input';
     import link from '../mixins/link.js';
+    import imgUpload from '../mixins/imgUpload.js';
+    import Markdown from './components/markdown.vue';
 
     export default {
         name: 'BlogEdit',
-        mixins: [ link ],
+        mixins: [ link, imgUpload ],
         components: {
             // Editor,
             ArrInput,
+            Markdown,
         },
         data() {
             return {
                 title: this.dayjs().format('MM月DD日'),
                 content: '',
-                htmlContent: '',
+                htmlContent: '<p>开始编辑...</p>',
                 tags: [],
             };
         },
@@ -72,18 +82,8 @@
                     },
                 });
             },
-            // 图片上传的方法
-            async imgAdd(pos, $file) {
-                // 第一步.将图片上传到服务器.
-                const formdata = new FormData();
-                formdata.append('image', $file);
-                const res = await this.ajax({
-                    url: '/api/img/upload',
-                    method: 'post',
-                    data: formdata,
-                    headers: { 'Content-Type': 'multipart/form-data' },
-                });
-                this.$refs.md.$img2Url(pos, res.data.url);
+            contentChange(md, html) {
+                this.htmlContent = html || '<p>开始编辑...</p>';
             },
         },
     };

@@ -9,8 +9,8 @@
     height: 100%;
 }
 body {
-    width: 100vw;
-    // width: 100%;
+    // width: 100vw;
+    width: 100%;
 }
 li {
     list-style: none;
@@ -27,29 +27,22 @@ li {
     right: 0;
     max-width: 1600px;
     margin: auto;
-    background: #eee;
-    .top-img {
-        position: absolute;
-        top: 200px;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        transform: translate(0, -50%);
-        width: 94%;
-        // max-width: 1024px;
-        z-index: 12;
+    background: #fff;
+    .carousel {
+        img {
+            width: 100%;
+        }
     }
     .navbar-header {
-        height: 200px;
+        height: 55px;
         width: 100%;
-        border-bottom: 1px solid #f0f0f0;
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 10;
-        background: rgba(0, 0, 0, 0.92);
+        background: #1a1a1a;
         box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-        
+        color: #fff;
         .container {
             position: absolute;
             width: 100%;
@@ -70,7 +63,6 @@ li {
                 .title {
                     padding-top: 5px;
                     font-size: 18px;
-                    color: #333;
                     cursor: pointer;
                     width: 120px;
                 }
@@ -89,24 +81,27 @@ li {
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
+                > span {
+                    color: #fff;
+                    cursor: pointer;
+                }
                 .username {
 
                 }
             }
         }
         
-        @media screen and (max-width: 1000px) {
-            .top-img {
-                top: 260px;
-            }
-            .navbar-header {
-                height: 260px;
-            }
-        }
+        // @media screen and (max-width: 1000px) {
+        //     .top-img {
+        //         top: 260px;
+        //     }
+        //     .navbar-header {
+        //         height: 260px;
+        //     }
+        // }
     }
     > .container {
-        margin-top: 70px;
-        min-height: calc(~"100% - 70px - 60px");
+        min-height: calc(~"100vh - 55px - 60px");
     }
     > footer {
         height: 60px;;

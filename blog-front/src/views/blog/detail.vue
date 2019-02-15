@@ -1,9 +1,6 @@
 <style lang="less" scoped>
     @import './detail.less';
 </style>
-<style lang="less">
-    @import './markdown.less';
-</style>
 
 <template>
     <article class="detail-page">
@@ -19,8 +16,21 @@
                     {{dayjs(+blog.createTime).format('HH:mm:ss')}}
                 </span>
             </div>
-            <article id="markdown" class="markdown" v-html="blog.htmlContent">
-            </article>
+            <div class="content">
+                <mavon-editor ref='md'
+                    v-show="editMode"
+                    class="markdown-edit"
+                    v-model="blog.content"
+                    @save="update"
+                    @change="contentChange"
+                    :navigation="false"
+                    :subfield="false"
+                    :toolbarsFlag="false"
+                    @imgAdd="imgAdd" >
+                </mavon-editor>
+                <Markdown :style="{ width: editMode ? '48%' : '100%' }"
+                    :html="blog.htmlContent"></Markdown>
+            </div>
             <Row type="flex" justify="end">
                 <Button type="text" @click="update" v-show="editMode">保存</Button>
                 <Button type="text" @click="showEdit" v-show="!editMode">修改</Button>
@@ -40,14 +50,18 @@
     import logo from '../../assets/images/title.png';
     import link from '../mixins/link.js';
     import Tags from './components/tags.vue';
+    import Markdown from './components/markdown.vue';
     import MdCatalog from '../../components/md-catalog';
+
+    import imgUpload from '../mixins/imgUpload.js';
 
     export default {
         name: 'BlogDetail',
-        mixins: [ link ],
+        mixins: [ link, imgUpload ],
         components: {
             Tags,
             MdCatalog,
+            Markdown,
         },
         data() {
             return {
@@ -93,6 +107,9 @@
             async update() {
                 await this.ajax.put(`/api/blogs/${this.blog.id}`, { blog: this.blog });
                 this.editMode = false;
+            },
+            contentChange(md, html) {
+                this.blog.htmlContent = html;
             },
         },
         async created() {

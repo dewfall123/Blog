@@ -21,6 +21,7 @@ class BlogService extends Service {
             firstImg,
             weather,
             htmlContent,
+            see: 0,
         };
         const { affectedRows: result } = await this.app.mysqlInstance.insert('blog', blog);
         return result;
@@ -45,6 +46,7 @@ class BlogService extends Service {
 
     async read(uid, id) {
         const blog = await this.app.mysqlInstance.get('blog', { createUser: uid, id });
+        this.app.mysqlInstance.update('blog', { id: blog.id, see: (blog.see || 0) + 1 }); // 查看数+1
         blog.tags = blog.tags ? JSON.parse(blog.tags) : [];
         return blog;
     }
@@ -78,6 +80,7 @@ class BlogService extends Service {
         const count = await this.app.mysqlInstance.count('blog', filter);
         return count;
     }
+
 }
 
 module.exports = BlogService;

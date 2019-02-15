@@ -8,7 +8,7 @@
         height: 100%;
         justify-content: flex-start;
         // width: calc(~"100% - 40px");
-        color: #515a6e;
+        color: #888;
         > div {
             margin-right: 18px;
             line-height: 20px;

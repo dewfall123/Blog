@@ -10,12 +10,14 @@
                 v-show="testShow"
                 :class="'blog-card'"
                 @click="showDetail(blogI.id)">
-                <p class="title">
-                    <span class="title-content">{{blogI.title}}</span>
-                </p>
                 <img v-lazyload="imgList[blogI.id]" :src="defaultImg"></img>
-                <p class="content">{{blogI.summary}}</p>
-                <Tags :blogI="blogI"></Tags>
+                <div class="blog-card-text">
+                    <p class="title">
+                        <span class="title-content">{{blogI.title}}</span>
+                    </p>
+                    <Tags :blogI="blogI"></Tags>
+                    <p class="content">{{blogI.summary}}</p>
+                </div>
             </article>
         </div>
         <div class="page">

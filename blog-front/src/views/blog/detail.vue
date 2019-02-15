@@ -33,6 +33,7 @@
             </div>
             <Row type="flex" justify="end">
                 <Button type="text" @click="update" v-show="editMode">保存</Button>
+                <Button type="text" @click="cancelEdit" v-show="editMode">取消</Button>
                 <Button type="text" @click="showEdit" v-show="!editMode">修改</Button>
                 <Poptip
                     confirm
@@ -75,6 +76,7 @@
                     createUser: '',
                     htmlCOntent: '',
                 },
+                blogOri: {},
                 editMode: false,
                 markdownId: '',
             };
@@ -89,6 +91,7 @@
                 const res = await this.ajax.get(`/api/blogs/${this.$route.params.id}`);
                 if (+res.data.result === 0) {
                     this.blog = res.data.blog;
+                    this.blogOri = JSON.parse(JSON.stringify(this.blog));
                     console.log(JSON.stringify(this.blog));
                 }
             },
@@ -103,6 +106,10 @@
             },
             showEdit() {
                 this.editMode = !this.editMode;
+            },
+            cancelEdit() {
+                this.blog = JSON.parse(JSON.stringify(this.blogOri));
+                this.editMode = false;
             },
             async update() {
                 await this.ajax.put(`/api/blogs/${this.blog.id}`, { blog: this.blog });

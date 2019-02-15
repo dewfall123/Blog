@@ -4,9 +4,20 @@
 
 <template>
     <section class="container">
-        <div class="list"
-        >
-            <article v-for="(blogI, index) in blogList" :key="blogI.id"
+        <div class="p-title">
+            <p>文章列表</p>
+            <div class="tags">
+                <TagWitiText v-for="o in filterTypes"
+                    :class="[ category === o.filterValue ? 'active' : '' ]"
+                    :clickEvent="() => {category = o.filterValue}"
+                    :key="o.icon"
+                    :icon="o.icon"
+                    :text="o.text">
+                </TagWitiText>
+            </div>
+        </div>
+        <div class="list">
+            <article v-for="(blogI, index) in filtedList" :key="blogI.id"
                 v-show="testShow"
                 :class="'blog-card'"
                 @click="showDetail(blogI.id)">
@@ -37,11 +48,12 @@
     import link from '../mixins/link.js';
     import defaultImg from '../../assets/images/title.png';
     import Tags from './components/tags.vue';
+    import TagWitiText from './components/tag.vue';
 
     export default {
         name: 'BlogList',
         mixins: [ link ],
-        components: { Tags },
+        components: { Tags, TagWitiText },
         data() {
             return {
                 defaultImg,
@@ -51,7 +63,18 @@
                 blogList: [],
                 count: -1,
                 testShow: true,
+                filterTypes: [
+                    { icon: 'md-apps', text: '所有文章', filterValue: '' },
+                    { icon: 'logo-github', text: '技术博客', filterValue: 'tec' },
+                    { icon: 'md-paw', text: '生活感悟', filterValue: 'life' },
+                ],
+                category: '',
             };
+        },
+        watch: {
+            category() {
+                this.blogs();
+            },
         },
         computed: {
             imgList() {
@@ -61,10 +84,19 @@
                 });
                 return result;
             },
+            filtedList() {
+                return this.blogList;
+            },
         },
         methods: {
             async blogs(i) {
-                const res = await this.ajax.get('/api/blogs', { params: { pageIndex: i, pageSize: this.pageSize } });
+                const res = await this.ajax.get('/api/blogs', {
+                    params: {
+                        pageIndex: i,
+                        pageSize: this.pageSize,
+                        category: this.category,
+                    },
+                });
                 this.pageIndex = i;
                 this.blogList = res.data.blogList;
                 this.count = res.data.count;

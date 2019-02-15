@@ -7,7 +7,7 @@ class BlogService extends Service {
     /**
      * create
      */
-    async insert(uid = 1, title, content, summary = '', tags, firstImg = '', weather = 'sunny', htmlContent) {
+    async insert(uid = 1, title, content, summary = '', tags, firstImg = '', weather = 'sunny', htmlContent, category = 'tec') {
         summary = this.ctx.helper.summary(content);
         const blog = {
             title,
@@ -22,19 +22,21 @@ class BlogService extends Service {
             weather,
             htmlContent,
             see: 0,
+            category,
         };
         const { affectedRows: result } = await this.app.mysqlInstance.insert('blog', blog);
         return result;
     }
 
-    async select(uid, pageIndex = 1, pageSize = 10) {
+    async select(uid, pageIndex = 1, pageSize = 10, category) {
         const list = await this.app.mysqlInstance.select('blog', {
-            where: { createUser: uid },
+            where: this.ctx.helper.delUndefined({ createUser: uid, category }),
             orders: [[ 'createTime', 'desc' ]],
             limit: +pageSize,
             offset: (+pageIndex - 1) * pageSize,
         });
         list.forEach(i => {
+            i.category = i.category || 'tec';
             try {
                 i.tags = JSON.parse(i.tags);
             } catch (err) {
@@ -48,6 +50,7 @@ class BlogService extends Service {
         const blog = await this.app.mysqlInstance.get('blog', { createUser: uid, id });
         this.app.mysqlInstance.update('blog', { id: blog.id, see: (blog.see || 0) + 1 }); // 查看数+1
         blog.tags = blog.tags ? JSON.parse(blog.tags) : [];
+        blog.category = blog.category || 'tec';
         return blog;
     }
 
@@ -77,7 +80,7 @@ class BlogService extends Service {
      * @returns {number} count
      */
     async count(filter = {}) {
-        const count = await this.app.mysqlInstance.count('blog', filter);
+        const count = await this.app.mysqlInstance.count('blog', this.ctx.helper.delUndefined(filter));
         return count;
     }
 

@@ -40,4 +40,14 @@ module.exports = {
         const sLength = this.config.summary.length || 150;
         return $html.text().replace(/\s/g, ' ').substr(0, sLength) + '...';
     },
+
+    // 删除undefined属性
+    delUndefined(o) {
+        for (const key in o) {
+            if (!o[key] && o[key] !== 0) {
+                delete o[key];
+            }
+        }
+        return o;
+    },
 };

@@ -21,18 +21,24 @@
                 v-show="testShow"
                 :class="'blog-card'"
                 @click="showDetail(blogI.id)">
-                <img v-lazyload="imgList[blogI.id]" :src="defaultImg"></img>
+                <div class="bg-img">
+                    <img  v-lazyload="imgList[blogI.id]" :src="defaultImg" :alt="blogI.id">
+                    </img>
+                </div>
+                <div class="cover">
+                    <p class="content">{{blogI.summary}}</p>
+                </div>
                 <div class="blog-card-text">
                     <p class="title">
                         <span class="title-content">{{blogI.title}}</span>
                     </p>
                     <Tags :blogI="blogI"></Tags>
-                    <p class="content">{{blogI.summary}}</p>
                 </div>
             </article>
         </div>
         <div class="page">
-            <Page :total="count" size="small" show-elevator show-sizer
+            <Page :total="count" size="small"
+                v-show="filtedList.length"
                 :current="pageIndex"
                 :page-size="pageSize"
                 :page-size-opts="[3, 6, 9, 12, 21]"
@@ -65,8 +71,8 @@
                 testShow: true,
                 filterTypes: [
                     { icon: 'md-apps', text: '所有文章', filterValue: '' },
-                    { icon: 'logo-github', text: '技术博客', filterValue: 'tec' },
-                    { icon: 'md-paw', text: '生活感悟', filterValue: 'life' },
+                    { icon: 'logo-github', text: '技术笔记', filterValue: 'tec' },
+                    { icon: 'md-paw', text: '生活记录', filterValue: 'life' },
                 ],
                 category: '',
             };

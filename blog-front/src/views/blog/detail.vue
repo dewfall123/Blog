@@ -28,10 +28,14 @@
                     :toolbarsFlag="false"
                     @imgAdd="imgAdd" >
                 </mavon-editor>
-                <Markdown :style="{ width: editMode ? '48%' : '100%' }"
+                <Markdown v-show="!editMode"
                     :html="blog.htmlContent"></Markdown>
+                <!-- 修改切换按钮 -->
+                <div class="switch" v-show="login">
+                    <Button shape="circle" @click="editMode = !editMode" icon="ios-swap"></Button>
+                </div>
             </div>
-            <Row type="flex" justify="end">
+            <Row type="flex" justify="end" v-show="login">
                 <Button type="text" @click="update" v-show="editMode">保存</Button>
                 <Button type="text" @click="cancelEdit" v-show="editMode">取消</Button>
                 <Button type="text" @click="showEdit" v-show="!editMode">修改</Button>
@@ -79,6 +83,7 @@
                 blogOri: {},
                 editMode: false,
                 markdownId: '',
+                login: false,
             };
         },
         methods: {
@@ -91,6 +96,7 @@
                 const res = await this.ajax.get(`/api/blogs/${this.$route.params.id}`);
                 if (+res.data.result === 0) {
                     this.blog = res.data.blog;
+                    this.login = res.data.login;
                     this.blogOri = JSON.parse(JSON.stringify(this.blog));
                     console.log(JSON.stringify(this.blog));
                 }

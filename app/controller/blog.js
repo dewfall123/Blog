@@ -64,6 +64,7 @@ class BlogController extends Controller {
         this.ctx.body = {
             result: 0,
             blog,
+            login: !!this.ctx.session.user,
         };
     }
 

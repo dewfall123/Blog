@@ -3,18 +3,34 @@
 .catalog {
     position: fixed;
     top: 40%;
-    margin-left: 682px;
+    margin-left: 672px;
     max-width: 400px;
     transform: translateY(-50%);
     height: 200px;
     > ul {
+        position: relative;
         border-left: 2px solid #ddd;
         padding: 0px 8px;
+        .spot {
+            display: inline-block;
+            position: absolute;
+            left: -5px;
+            background-color: #f44336;
+            width: 8px;
+            height: 8px;
+            border-radius: 8px;
+        }
         > li {
             cursor: pointer;
             font-size: 12px;
             line-height: 1.8;
-         
+            padding: 3px 10px 3px 16px;
+            line-height: 18px;
+            width: 140px;
+            color: #595959;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             &.big {
                 font-size: 14px;
                 color: #333;
@@ -23,7 +39,6 @@
             &.small {
                 color: #666;
                 padding-left: 24px;
-                line-height: 1.7;
             }
             &.li-active {
                 color: #f44336;
@@ -58,6 +73,7 @@
                 :class="[`${(li.tag < splitTag ? 'big' : 'small')}`, index === activeIndex ? 'li-active' : '']">
                 {{li.text}}
             </li>
+            <div class="spot" :style="{ top: `${activeIndex * 24 + 8}px`, color: '#000' }"></div>
         </ul>
     </aside>
 </template>

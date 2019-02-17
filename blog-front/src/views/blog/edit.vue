@@ -24,7 +24,7 @@
         </div>
         <Markdown :html="htmlContent"></Markdown>
         <div class="commit" >
-            <Button  @click="preCommit" type="primary">提交</Button>
+            <Button  @click="preCommit" icon="ios-ribbon-outline">提交</Button>
         </div>
     </div>
 </template>

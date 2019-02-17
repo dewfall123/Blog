@@ -18,20 +18,34 @@
                 </div>
                 <div class="nav-right">
                     <!-- <span class="username">{{username}}</span> -->
-                    <span  @click="goto({name: 'BlogEdit'})">写Blog</span>
+                    <span  @click="testLogin">写Blog</span>
                 </div>
             </div>
         </header>
         <!-- 轮播图 -->
-        <Carousel class="carousel" loop 
+        <Carousel class="carousel" loop :autoplay="true"
+            :autoplay-speed="6000"
             v-show="$route.name === 'BlogList'">
             <CarouselItem>
-                <img v-lazyload="img1" :src="img1_small" />
+                <img v-lazyload="top1" :src="top1" />
+            </CarouselItem>
+            <CarouselItem>
+                <img v-lazyload="top2" :src="top2" />
+            </CarouselItem>
+            <CarouselItem>
+                <img v-lazyload="top3" :src="top3" />
             </CarouselItem>
         </Carousel>
         <main class="container">
             <router-view></router-view>
             <BackTop :height="100"></BackTop>
+            <Modal
+                v-model="loginShow"
+                title="登录"
+                @on-ok="login"
+                >
+                <Input type="password" v-model="password"></Input>
+            </Modal>
         </main>
         <footer>
             <a target="_blank">粤ICP备18148812号</a>
@@ -42,7 +56,9 @@
 </template>
 <script>
     import logo from '../assets/images/title.png';
-    import img1 from '../assets/images/chuanzhang4-1.png';
+    import top1 from '../assets/images/top1.png';
+    import top2 from '../assets/images/top2.png';
+    import top3 from '../assets/images/top3.png';
     import img1_small from '../assets/images/chuanzhang4-1small.png';
     import link from './mixins/link.js';
 
@@ -53,12 +69,33 @@
         data() {
             return {
                 logo,
-                img1,
+                top1,
+                top2,
+                top3,
                 img1_small,
                 topInputFocus: false,
+                loginShow: false,
+                password: '',
             };
         },
         methods: {
+            async testLogin() {
+                const res = await this.ajax.get('/api/testlogin');
+                if (res.data.login) {
+                    this.goto({ name: 'BlogEdit' });
+                } else {
+                    this.loginShow = true;
+                }
+            },
+            async login() {
+                const res = await this.ajax.get('/api/login', {
+                    params: { password: this.password },
+                });
+                if (res.data.result === 0) {
+                    this.loginShow = false;
+                    this.goto({ name: 'BlogEdit' });
+                }
+            },
         },
         mounted() {
         },

@@ -1,6 +1,7 @@
 
 .markdown {
     padding: 16px 1px 16px 0;
+    line-height: 1.5;
     color: #24292e;
     .titleClass() {
         font-weight: 400;
@@ -70,6 +71,7 @@
         font-size: 80%;
         background-color: #f6f8fa;
         border-radius: 4px;
+        white-space: pre-wrap;
     }
     > blockquote {
         padding: 0 0 0 8px;
@@ -116,6 +118,13 @@
             background-color: rgba(27,31,35,.05);
             border-radius: 3px;
             font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
+        }
+    }
+    ul {
+        padding-left: 20px;
+        li {
+            line-height: 21px;
+            list-style: disc;
         }
     }
 }

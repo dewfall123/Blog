@@ -5,11 +5,13 @@
 <template>
     <article class="detail-page">
         <div class="container">
-            <h1 class="title">{{blog.title}}</h1>
+            <h1 class="title" v-show="!editMode">{{blog.title}}</h1>
+            <Input v-model="blog.title" v-show="editMode" ></Input>
             <Tags :blogI="blog" class="icons"></Tags>
             <div class="tags">
                 <div>
-                    <Tag color="#f16d71" v-for="tag in (blog.tags || [])" :key="tag">{{tag}}</Tag>
+                    <Tag color="#f16d71" v-show="!editMode" v-for="tag in (blog.tags || [])" :key="tag">{{tag}}</Tag>
+                    <ArrInput placeholder="标签" v-show="editMode" v-model="blog.tags"></ArrInput>
                 </div>
                 <span>
                     <Icon type="ios-clock-outline" size="16" />
@@ -57,6 +59,7 @@
     import Tags from './components/tags.vue';
     import Markdown from './components/markdown.vue';
     import MdCatalog from '../../components/md-catalog';
+    import ArrInput from '../../components/arr-input';
 
     import imgUpload from '../mixins/imgUpload.js';
 
@@ -67,6 +70,7 @@
             Tags,
             MdCatalog,
             Markdown,
+            ArrInput,
         },
         data() {
             return {
@@ -74,7 +78,7 @@
                 blog: {
                     title: '',
                     content: '',
-                    tags: '',
+                    tags: [],
                     createTime: '',
                     lastEditTime: '',
                     createUser: '',

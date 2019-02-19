@@ -2,7 +2,7 @@ import Vue from 'vue';
 import iView from 'iview';
 import VueRouter from 'vue-router';
 import Routers from './router';
-import Vuex from 'vuex';
+// import Vuex from 'vuex';
 import Util from './libs/util';
 import mavonEditor from 'mavon-editor';
 import Lazyload from 'vue-lazyload-img';
@@ -13,7 +13,7 @@ import 'mavon-editor/dist/css/index.css';
 import App from './app.vue';
 
 Vue.use(VueRouter);
-Vue.use(Vuex);
+// Vue.use(Vuex);
 Vue.use(iView);
 Vue.use(mavonEditor);
 Vue.use(Lazyload, {
@@ -47,26 +47,26 @@ router.afterEach(() => {
 });
 
 
-const store = new Vuex.Store({
-    state: {
+// const store = new Vuex.Store({
+//     state: {
 
-    },
-    getters: {
+//     },
+//     getters: {
 
-    },
-    mutations: {
+//     },
+//     mutations: {
 
-    },
-    actions: {
+//     },
+//     actions: {
 
-    },
-});
+//     },
+// });
 
 
 new Vue({
     el: '#app',
     router,
-    store,
+    // store,
     components: {
     },
     render: h => h(App),

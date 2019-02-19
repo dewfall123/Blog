@@ -29,20 +29,28 @@ module.exports = merge(webpackBaseConfig, {
             filename: '[name].[hash].css',
             allChunks: true,
         }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendors',
-            filename: 'vendors.[hash].js',
-        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendors',
+        //     filename: 'vendors.[hash].js',
+        // }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"production"',
             },
         }),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false,
-        //     },
-        // }),
+        new webpack.optimize.UglifyJsPlugin({
+            parallel: true,
+            uglifyOptions: {
+                drop_console: true,
+            },
+            compress: {
+                warnings: false,
+            },
+            output: {
+                beautify: false,
+                comments: false,
+            },
+        }),
         new HtmlWebpackPlugin({
             filename: '../../view/blog/index.html',
             template: './src/template/index.ejs',

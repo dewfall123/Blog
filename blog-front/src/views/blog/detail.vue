@@ -27,7 +27,7 @@
                     @change="contentChange"
                     :navigation="false"
                     :subfield="false"
-                    :toolbarsFlag="false"
+                    :toolbarsFlag="true"
                     @imgAdd="imgAdd" >
                 </mavon-editor>
                 <Markdown v-show="!editMode"

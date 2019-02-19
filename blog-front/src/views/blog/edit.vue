@@ -9,6 +9,12 @@
             <Input long placeholder="标题" v-model="title"></Input>
             <p>标签:</p>
             <ArrInput placeholder="标签" v-model="tags"></ArrInput>
+            <RadioGroup class="type-select" v-model="category">
+                <Radio v-for="(val) in categoryOptions" :key="val.icon" :label="val.value">
+                    <Icon :type="val.icon" size="20"></Icon>
+                    <span>{{val.label}}</span>
+                </Radio>
+            </RadioGroup>
             <mavon-editor ref='md'
                 class="markdown-edit"
                 v-model="content"
@@ -49,6 +55,11 @@
                 content: '',
                 htmlContent: '<p>开始编辑...</p>',
                 tags: [],
+                category: 'tec',
+                categoryOptions: [
+                    { value: 'tec', label: '技术文章', icon: 'ios-at' },
+                    { value: 'life', label: '生活记录', icon: 'ios-color-palette' },
+                ],
             };
         },
         methods: {
@@ -58,6 +69,7 @@
                     content: this.content,
                     tags: this.tags,
                     htmlContent: this.htmlContent,
+                    category: this.category,
                 });
                 setTimeout(() => {
                     this.goto({ name: 'BlogList' });

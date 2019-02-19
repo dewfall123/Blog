@@ -11,7 +11,7 @@ module.exports = appInfo => {
 
     // 图片存储路径
     config.IMG_PATH = './app/public/imgs/';
-    config.IMG_PREFIX = 'http://47.106.130.217:7001';
+    config.IMG_PREFIX = 'https://zfhzzl.com.cn';
 
     exports.logger = {
         dir: '/usr/websync/PhotoWall/logs',

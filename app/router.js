@@ -12,4 +12,6 @@ module.exports = app => {
     router.post('/api/img/upload', controller.blog.upload);
     router.get('/api/testlogin', controller.user.testLogin);
     router.get('/api/login', controller.user.login);
+
+    app.router.redirect('/favicon.ico', '/public/dist/icon.svg', 302);
 };

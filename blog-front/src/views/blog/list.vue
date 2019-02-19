@@ -63,7 +63,7 @@
         data() {
             return {
                 defaultImg,
-                validImgNum: 24,
+                validImgNum: 19,
                 pageIndex: 1,
                 pageSize: 9,
                 blogList: [],
@@ -86,7 +86,7 @@
             imgList() {
                 const result = [];
                 (this.blogList || []).forEach(i => {
-                    result[i.id] = require('../../assets/images/' + i.id % this.validImgNum + '.png');
+                    result[i.id] = require('../../assets/images/' + (i.id % this.validImgNum || 1) + '.jpg');
                 });
                 return result;
             },

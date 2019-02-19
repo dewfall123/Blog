@@ -43,7 +43,7 @@ axios.interceptors.response.use(function (response) {
 
 const util = {
     title(title) {
-        title = title ? title + ' - Home' : 'iView project';
+        title = title ? title + '' : '且坐吃茶~';
         window.document.title = title;
     },
     ajaxUrl: env === 'development' ?

@@ -7,7 +7,8 @@
         <header class="navbar-header">
             <div class="container">
                 <div class="nav-left">
-                    <Icon type="ios-planet-outline" size="38"/>
+                    <!-- <Icon type="ios-planet-outline" size="38"/> -->
+                    <img :src="favicon"></img>
                     <p class="title" @click="goto({name: 'BlogList'})">Z-blog</p>
                 </div>
                 <div class="nav-center">
@@ -56,10 +57,10 @@
 </template>
 <script>
     import logo from '../assets/images/title.png';
-    import top1 from '../assets/images/top1.png';
-    import top2 from '../assets/images/top2.png';
-    import top3 from '../assets/images/top3.png';
-    import img1_small from '../assets/images/chuanzhang4-1small.png';
+    import favicon from '../assets/images/favicon-white.svg';
+    import top1 from '../assets/images/top1.jpg';
+    import top2 from '../assets/images/top2.jpg';
+    import top3 from '../assets/images/top3.jpg';
     import link from './mixins/link.js';
 
     export default {
@@ -69,10 +70,10 @@
         data() {
             return {
                 logo,
+                favicon,
                 top1,
                 top2,
                 top3,
-                img1_small,
                 topInputFocus: false,
                 loginShow: false,
                 password: '',

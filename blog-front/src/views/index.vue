@@ -10,6 +10,7 @@
                     <!-- <Icon type="ios-planet-outline" size="38"/> -->
                     <img :src="favicon"></img>
                     <p class="title" @click="goto({name: 'BlogList'})">Z-blog</p>
+                    <p class="link" @click="goto({name: 'BlogList'})">首页</p>
                 </div>
                 <div class="nav-center">
                     <!-- <Input class="header-search" 
@@ -19,7 +20,8 @@
                 </div>
                 <div class="nav-right">
                     <!-- <span class="username">{{username}}</span> -->
-                    <span  @click="testLogin">写Blog</span>
+                    <a href="/#/blogs/11"><Icon type="ios-link" :size="18"/>关于</a>
+                    <span @click="testLogin">{{loginEd ? '写Blog' : '登录'}}</span>
                 </div>
             </div>
         </header>
@@ -42,10 +44,10 @@
             <BackTop :height="100"></BackTop>
             <Modal
                 v-model="loginShow"
-                title="登录"
+                title="当前仅限管理员登录"
                 @on-ok="login"
                 >
-                <Input type="password" v-model="password"></Input>
+                <Input type="password" v-model="password" placeholder="password"></Input>
             </Modal>
         </main>
         <footer>
@@ -77,13 +79,17 @@
                 topInputFocus: false,
                 loginShow: false,
                 password: '',
+                loginEd: false,
             };
         },
         methods: {
             async testLogin() {
+                if (this.loginEd) {
+                    this.goto({ name: 'BlogEdit' });
+                }
                 const res = await this.ajax.get('/api/testlogin');
                 if (res.data.login) {
-                    this.goto({ name: 'BlogEdit' });
+                    this.loginEd = true;
                 } else {
                     this.loginShow = true;
                 }

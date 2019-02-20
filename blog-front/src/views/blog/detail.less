@@ -4,10 +4,17 @@
 .detail-page {
     width: 100%;
     .container {
-        width: 650px;
+        width: 100%;
+        box-sizing: content-box;
+        max-width: 650px;
         margin: 0 220px 0 130px;
         color: #969696;
         padding-top: 32px;
+        @media screen and (max-width: 1000px) {
+            margin: 8px 0;
+            padding: 0 28px;
+            width: calc(~"100% - 56px");
+        }
         .title {
             font-size: 22px;
             line-height: 1.8;

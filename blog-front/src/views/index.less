@@ -52,6 +52,7 @@ li {
             justify-content: space-around;
             .nav-left {
                 display: flex;
+                justify-content: flex-start;
                 align-items: center;
                 i {
                     margin: 0 8px;
@@ -60,12 +61,20 @@ li {
                     padding-top: 5px;
                     font-size: 18px;
                     cursor: pointer;
-                    width: 120px;
+                    width: 65px;
+                }
+                .link {
+                    padding-top: 6px;
+                    cursor: pointer;
                 }
                 img {
                     width: 26px;
                     height: 26px;
                     margin-right: 10px;
+                }
+                
+                &:hover {
+                    color: @hover-color;
                 }
             }
             .nav-center {
@@ -79,6 +88,7 @@ li {
             }
             .nav-right {
                 width: 60%;
+                padding-top: 6px;
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
@@ -86,8 +96,22 @@ li {
                     color: #fff;
                     cursor: pointer;
                 }
-                .username {
-
+                > a {
+                    color: #fff;
+                    cursor: pointer;
+                    height: 18px;
+                    margin-right: 8px;
+                    > i {
+                        margin-right: 4px;
+                        transition: all 1s ease-out;
+                        transform: rotate(-90deg);
+                    }
+                    &:hover {
+                        color: @hover-color;
+                        > i {
+                            transform: rotate(720deg);
+                        }
+                    }
                 }
             }
         }

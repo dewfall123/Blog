@@ -67,12 +67,27 @@
     > p { 
         padding: 0 0 16px 0;
     }
+    
+    code {
+        padding: 0;
+        padding-top: .2em;
+        padding-bottom: .2em;
+        margin: 0;
+        font-size: 85%;
+        background-color: rgba(27,31,35,.05);
+        border-radius: 3px;
+        font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
+    }
     > pre {
         padding: 16px;
         font-size: 80%;
         background-color: #f6f8fa;
         border-radius: 4px;
         white-space: pre-wrap;
+        code {
+
+            background-color: #f6f8fa;
+        }
     }
     > blockquote {
         padding: 0 0 0 8px;
@@ -111,19 +126,6 @@
             color: #2d9e2d;
             font-weight: 600;
         }
-    }
-    code {
-        padding: 0;
-        padding-top: .2em;
-        padding-bottom: .2em;
-        margin: 0;
-        font-size: 85%;
-        background-color: rgba(27,31,35,.05);
-        border-radius: 3px;
-        font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
-    }
-    pre > code {
-        background-color: #f6f8fa;
     }
     ul {
         padding-left: 20px;

@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     entry: {
@@ -71,6 +72,10 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new VueLoaderPlugin(),
+        new ExtractTextPlugin("styles.css"),
+    ],
     resolve: {
         extensions: ['.js', '.vue'],
         alias: {

@@ -15,6 +15,7 @@ fs.writeFile('./src/config/env.js', 'export default "production";', function(err
 
 const outpath = path.join(__dirname, '../app/public/dist/');
 module.exports = merge(webpackBaseConfig, {
+    mode: 'production',
     output: {
         path: outpath,
         publicPath: '/public/dist/',
@@ -38,18 +39,25 @@ module.exports = merge(webpackBaseConfig, {
                 NODE_ENV: '"production"',
             },
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            parallel: true,
+        new UglifyJsPlugin({
             uglifyOptions: {
-                drop_console: true,
-            },
-            compress: {
-                warnings: false,
-            },
-            output: {
-                beautify: false,
+              ie8: false,
+              ecma: 8,
+              parse: {...options},
+              mangle: {
+                ...options,
+                properties: {
+                  // mangle property options
+                }
+              },
+              output: {
                 comments: false,
-            },
+                beautify: false,
+                ...options
+              },
+              compress: {...options},
+              warnings: false
+            }
         }),
         new HtmlWebpackPlugin({
             filename: '../../view/blog/index.html',

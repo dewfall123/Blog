@@ -19,6 +19,7 @@ fs.writeFile('./src/config/env.js', 'export default "development";', function(er
 
 module.exports = merge(webpackBaseConfig, {
     devtool: '#source-map',
+    mode: 'development',
     output: {
         publicPath: '/dist/',
         filename: '[name].js',

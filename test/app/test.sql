@@ -13,8 +13,18 @@ UPDATE blog SET category = 'tec';
 CREATE TABLE user 
 
 
-// 复制数据库
+-- // 复制数据库
 mysqldump blog -u root -p123456 --add-drop-table | mysql newdb -u root -p123456
 
 CREATE DATABASE blog_prod;
 CREATE TABLE blog_prod.blog LIKE blog.blog;
+
+ALTER TABLE blog  MODIFY content TEXT  CHARACTER SET utf8mb4  COLLATE utf8mb4_unicode_ci;
+ALTER TABLE blog CONVERT TO CHARACTER SET utf8mb4;
+
+-- // 查看编码状态
+SHOW VARIABLES WHERE Variable_name LIKE 'character_set_%' OR Variable_name LIKE 'collation%';
+SET NAMES utf8mb4; 
+ALTER DATABASE `blog` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
+ALTER DATABASE 'blog' CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;

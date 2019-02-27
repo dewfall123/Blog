@@ -9,6 +9,7 @@
     height: 200px;
     > ul {
         position: relative;
+        max-height: 80vh;
         border-left: 2px solid #ddd;
         padding: 0px 8px;
         .spot {

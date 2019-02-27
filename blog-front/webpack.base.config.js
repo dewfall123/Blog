@@ -19,11 +19,11 @@ module.exports = {
                         options: {
                             loaders: {
                                 less: ExtractTextPlugin.extract({
-                                    use: ['css-loader?minimize', 'autoprefixer-loader', 'less-loader'],
+                                    use: ['css-loader?minimize', 'postcss-loader', 'less-loader',],
                                     fallback: 'vue-style-loader'
                                 }),
                                 css: ExtractTextPlugin.extract({
-                                    use: ['css-loader', 'autoprefixer-loader', 'less-loader'],
+                                    use: ['css-loader', 'postcss-loader', 'less-loader'],
                                     fallback: 'vue-style-loader'
                                 })
                             }
@@ -49,7 +49,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    use: ['css-loader?minimize', 'autoprefixer-loader'],
+                    use: ['css-loader?minimize', 'postcss-loader'],
                     fallback: 'style-loader'
                 })
             },
@@ -57,7 +57,7 @@ module.exports = {
             {
                 test: /\.less/,
                 use: ExtractTextPlugin.extract({
-                    use: ['autoprefixer-loader', 'less-loader'],
+                    use: ['postcss-loader', 'less-loader'],
                     fallback: 'style-loader'
                 })
             },

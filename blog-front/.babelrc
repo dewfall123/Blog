@@ -1,10 +1,15 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "modules": false
-      }
+    "presets": [
+        [
+			// 这个 preset 包括支持现代 JavaScript（ES2015，ES2016 等）的所有插件
+            "@babel/preset-env",
+            {
+              "modules": false
+            }
+        ]
+    ],
+    "plugins": [
+		//A plugin that enables the re-use of Babel's injected helper code to save on codesize.
+		"@babel/plugin-transform-runtime",
     ]
-  ]
 }

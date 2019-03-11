@@ -12,30 +12,53 @@ module.exports = {
         path: path.join(__dirname, './dist')
     },
     module: {
-        rules: [{
+        rules: [
+            {
                 test: /.vue$/,
-                use: [{
+                use: [
+                    {
                         loader: 'vue-loader',
-                        options: {
-                            loaders: {
-                                less: ExtractTextPlugin.extract({
-                                    use: ['css-loader?minimize', 'postcss-loader', 'less-loader',],
-                                    fallback: 'vue-style-loader'
-                                }),
-                                css: ExtractTextPlugin.extract({
-                                    use: ['css-loader', 'postcss-loader', 'less-loader'],
-                                    fallback: 'vue-style-loader'
-                                })
-                            }
-                        }
                     },
                     {
                         loader: 'iview-loader',
                         options: {
-                            prefix: false
+                            prefix: false,
                         }
                     }
-                ]
+                ],
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader', 
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: [
+                                require('autoprefixer'),
+                                require('cssnano'),
+                            ],
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader', 
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: [
+                                require('autoprefixer'),
+                                require('cssnano'),
+                            ],
+                        },
+                    },
+                    'less-loader',
+                ],
             },
             {
                 test: /iview\/.*?js$/,
@@ -47,22 +70,6 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    use: ['css-loader?minimize', 'postcss-loader'],
-                    fallback: 'style-loader'
-                })
-            },
-
-            {
-                test: /\.less/,
-                use: ExtractTextPlugin.extract({
-                    use: ['postcss-loader', 'less-loader'],
-                    fallback: 'style-loader'
-                })
-            },
-
-            {
                 test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
                 loader: 'url-loader?limit=1024'
             },
@@ -73,8 +80,12 @@ module.exports = {
         ]
     },
     plugins: [
-        new VueLoaderPlugin(),
-        new ExtractTextPlugin("styles.css"),
+        new VueLoaderPlugin(),  // 让其他webpack规则也对Vue文件适用
+        
+        new ExtractTextPlugin({
+            filename: '[name].css',
+            allChunks: true, 
+        }),
     ],
     resolve: {
         extensions: ['.js', '.vue'],

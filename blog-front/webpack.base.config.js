@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: {
@@ -82,9 +83,8 @@ module.exports = {
     plugins: [
         new VueLoaderPlugin(),  // 让其他webpack规则也对Vue文件适用
         
-        new ExtractTextPlugin({
+        new MiniCssExtractPlugin({
             filename: '[name].css',
-            allChunks: true, 
         }),
     ],
     resolve: {

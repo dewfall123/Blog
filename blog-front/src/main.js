@@ -47,21 +47,6 @@ router.afterEach(() => {
 });
 
 
-// const store = new Vuex.Store({
-//     state: {
-
-//     },
-//     getters: {
-
-//     },
-//     mutations: {
-
-//     },
-//     actions: {
-
-//     },
-// });
-
 
 new Vue({
     el: '#app',

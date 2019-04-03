@@ -41,7 +41,6 @@ class BlogController extends Controller {
     async index() {
         const uid = this.ctx.session.uid || '1';
         const { pageIndex, pageSize, category } = this.ctx.query;
-
         const blogList = await this.service.blog.select(uid, pageIndex, pageSize, category);
         const count = await this.service.blog.count({ category });
         this.ctx.body = {

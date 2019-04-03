@@ -13,7 +13,7 @@
                 "run",
                 "debug",
                 "--",
-                "--inspect"
+                "--inspect-brk"
             ],
             "console": "integratedTerminal",
             "restart": true,

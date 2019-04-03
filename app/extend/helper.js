@@ -40,6 +40,20 @@ module.exports = {
         const sLength = this.config.summary.length || 150;
         return $html.text().replace(/\s/g, ' ').substr(0, sLength) + '...';
     },
+    /**
+     * 分离markdown标签
+     * @param {*} str
+     */
+    noteSummary(html) {
+        try {
+            const $html = cheerio.load(html);
+            const textArr = $html.text().split('\n');
+            return textArr.reduce((pre, n) => pre || n);
+        } catch (err) {
+            console.log(err.stack);
+            return '';
+        }
+    },
 
     // 删除undefined属性
     delUndefined(o) {

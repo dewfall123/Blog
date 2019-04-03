@@ -28,3 +28,31 @@ SET NAMES utf8mb4;
 ALTER DATABASE `blog` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 ALTER DATABASE 'blog' CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+
+-- note表
+CREATE TABLE IF NOT EXISTS `note`(
+   `id` INT AUTO_INCREMENT,
+   `title` VARCHAR(100) NOT NULL,
+   `content` TEXT ,
+   `createUser` VARCHAR(20) DEFAULT null,
+   `createTime` VARCHAR(20) DEFAULT null,
+   `editTime` VARCHAR(20) DEFAULT null,
+   `tags` VARCHAR(2000) DEFAULT null,
+   `category` VARCHAR(20) DEFAULT null,
+   PRIMARY KEY ( `id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE note ADD COLUMN summary text  COMMENT '摘要';
+
+-- user表
+CREATE TABLE IF NOT EXISTS `user`(
+   `id` INT AUTO_INCREMENT,
+   `nick` VARCHAR(100) NOT NULL,
+   `phone` VARCHAR(20) NOT NULL,
+   `email` VARCHAR(50) NOT NULL,
+   `sex` INT NOT NULL,
+   PRIMARY KEY ( `id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE user ADD COLUMN pwd VARCHAR(100) DEFAULT '' COMMENT '密码md5';
+

@@ -24,12 +24,12 @@ class BlogService extends Service {
             see: 0,
             category,
         };
-        const { affectedRows: result } = await this.app.mysqlInstance.insert('blog', blog);
+        const { affectedRows: result } = await this.app.blogInstance.insert('blog', blog);
         return result;
     }
 
     async select(uid, pageIndex = 1, pageSize = 10, category) {
-        const list = await this.app.mysqlInstance.select('blog', {
+        const list = await this.app.blogInstance.select('blog', {
             where: this.ctx.helper.delUndefined({ createUser: uid, category }),
             orders: [[ 'createTime', 'desc' ]],
             limit: +pageSize,
@@ -47,15 +47,15 @@ class BlogService extends Service {
     }
 
     async read(uid, id) {
-        const blog = await this.app.mysqlInstance.get('blog', { createUser: uid, id });
-        this.app.mysqlInstance.update('blog', { id: blog.id, see: (blog.see || 0) + 1 }); // 查看数+1
+        const blog = await this.app.blogInstance.get('blog', { createUser: uid, id });
+        this.app.blogInstance.update('blog', { id: blog.id, see: (blog.see || 0) + 1 }); // 查看数+1
         blog.tags = blog.tags ? JSON.parse(blog.tags) : [];
         blog.category = blog.category || 'tec';
         return blog;
     }
 
     async delete(uid, id) {
-        const { affectedRows: result } = await this.app.mysqlInstance.delete('blog', { createUser: uid, id });
+        const { affectedRows: result } = await this.app.blogInstance.delete('blog', { createUser: uid, id });
         return result;
     }
 
@@ -70,7 +70,7 @@ class BlogService extends Service {
             lastEditTime: new Date().getTime(),
         });
         blog.summary = this.ctx.helper.summary(blog.content);
-        const { affectedRows: result } = await this.app.mysqlInstance.update('blog', blog);
+        const { affectedRows: result } = await this.app.blogInstance.update('blog', blog);
         return result;
     }
 
@@ -80,7 +80,7 @@ class BlogService extends Service {
      * @returns {number} count
      */
     async count(filter = {}) {
-        const count = await this.app.mysqlInstance.count('blog', this.ctx.helper.delUndefined(filter));
+        const count = await this.app.blogInstance.count('blog', this.ctx.helper.delUndefined(filter));
         return count;
     }
 

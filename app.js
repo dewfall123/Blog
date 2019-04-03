@@ -15,7 +15,7 @@ module.exports = app => {
             // 数据库名
             database: app.env === 'prod' ? 'blog_prod' : 'blog',
         };
-        app.mysqlInstance = app.mysql.createInstance(mysqlConfig);
+        app.blogInstance = app.mysql.createInstance(mysqlConfig);
         app.logger.info(`Mysql 实例化完成 ${JSON.stringify(mysqlConfig)}`);
     });
 };

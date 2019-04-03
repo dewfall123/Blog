@@ -21,6 +21,11 @@ class UserController extends Controller {
             this.ctx.body = { result: -1, msg: '认证失败' };
         }
     }
+
+    // 用户登录
+    // async userLogin() {
+    //     const {} = this.ctx.
+    // }
 }
 
 module.exports = UserController;

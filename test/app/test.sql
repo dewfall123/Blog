@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS `note`(
    PRIMARY KEY ( `id` )
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ALTER TABLE note ADD COLUMN summary text  COMMENT '摘要';
+ALTER TABLE note ADD COLUMN markdown text  COMMENT 'markdown';
+ALTER TABLE note ADD COLUMN firstImg  VARCHAR(2000) DEFAULT null  COMMENT '首图';
 
 -- user表
 CREATE TABLE IF NOT EXISTS `user`(

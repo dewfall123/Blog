@@ -14,6 +14,7 @@ class NoteController extends Controller {
         note.createTime = Date.now();
         note.editTime = Date.now();
         note.summary = this.ctx.helper.noteSummary(note.content);
+        note.firstImg = this.ctx.helper.firstImg(note.content);
         note.title = note.title || note.summary || `无标题笔记 ${new Date().getHours()}-${new Date().getMinutes()}-${new Date().getDate()}`;
         // TODO 增加校验
         const insertResult = await this.service.note.insert(note);
@@ -30,7 +31,7 @@ class NoteController extends Controller {
         const uid = this.ctx.session.uid || '1';
         const { offset, limit } = this.ctx.query;
         const query = { createUser: uid };
-        const columns = [ 'id', 'title', 'editTime', 'summary' ];
+        const columns = [ 'id', 'title', 'editTime', 'summary', 'markdown', 'firstImg' ];
         const noteList = await this.service.note.select(query, [ offset, limit ], columns);
         const count = await this.service.note.count(query);
         this.ctx.body = {
@@ -74,6 +75,7 @@ class NoteController extends Controller {
     async update() {
         const note = this.ctx.request.body;
         note.summary = this.ctx.helper.noteSummary(note.content);
+        note.firstImg = this.ctx.helper.firstImg(note.content);
         note.editTime = Date.now();
         const up = await this.service.note.update(note);
         this.ctx.body = {

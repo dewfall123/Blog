@@ -41,7 +41,7 @@ module.exports = {
         return $html.text().replace(/\s/g, ' ').substr(0, sLength) + '...';
     },
     /**
-     * 分离markdown标签
+     * 分离markdown标签 note
      * @param {*} str
      */
     noteSummary(html) {
@@ -54,6 +54,22 @@ module.exports = {
             return '';
         }
     },
+
+    /**
+     * 读取第一张图片
+     * @param {*} str
+     */
+    firstImg(html) {
+        try {
+            const $html = cheerio.load(html);
+            const src = $html('img')[0].attribs.src;
+            return src;
+        } catch (err) {
+            return '';
+        }
+    },
+
+    
 
     // 删除undefined属性
     delUndefined(o) {
